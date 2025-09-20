@@ -1,7 +1,14 @@
 # Tubes Impal
 
+## Standard frontend templating
+1. Gunakan indentation 2 space agar mudal dibaca
+2. Berikan jarak antar section sehingga tiap bagian mudah dicek
+3. Pastikan routing sudah benar
+4. Layouts digunakan untuk container template dengan layout yang relatif mirip (header & footer)
+5. Gunakan includes jika section dirasa terlalu panjang atau untuk kebutuhan modular (product card dan sebagainya)
+
 ## Initial setup
-Command to run on the first time setup, make sure to set `.env` file beforehand.
+Command untuk setup awal, pastikan file `.env` sudah disetup.
 ```shell
 # Install dependency
 $ composer install
