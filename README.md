@@ -1,11 +1,14 @@
 # Tubes Impal
 
-## Standard frontend templating
-1. Gunakan indentation 2 space agar mudal dibaca
+## Development standard (bisa bertambah jika diperlukan)
+1. Gunakan indentation 2 space agar kode tidak terlalu panjang (mudah dibaca)
 2. Berikan jarak antar section sehingga tiap bagian mudah dicek
-3. Pastikan routing sudah benar
-4. Layouts digunakan untuk container template dengan layout yang relatif mirip (header & footer)
+3. Pastikan routing untuk frontend sudah benar
+4. Layouts digunakan sebagai container template dengan layout yang relatif mirip (header & footer)
 5. Gunakan includes jika section dirasa terlalu panjang atau untuk kebutuhan modular (product card dan sebagainya)
+6. Develop sesuai dengan branchnya untuk menghindari conflict atau tabrakan
+7. Sebelum push pastikan sudah pull terlebih dahulu
+8. PASTIKAN untuk tidak merge ke branch `main` jika fitur belum final dan/atau tanpa konfirmasi bersama
 
 ## Initial setup
 Command untuk setup awal, pastikan file `.env` sudah disetup.
