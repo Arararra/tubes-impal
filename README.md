@@ -11,9 +11,6 @@ $ php artisan key:generate
 
 # Fresh migrate db schema
 $ php artisan migrate:fresh --seed
-
-# Run seeder to generate data
-$ php artisan db:seed
 ```
 
 ## Pull repo changes
