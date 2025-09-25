@@ -1,11 +1,8 @@
 # Tubes Impal
 
 ## Development standard (bisa bertambah jika diperlukan)
-1. Gunakan indentation 2 space agar kode tidak terlalu panjang (mudah dibaca)
+1. Gunakan indentation 2 space agar kode tidak terlalu panjang
 2. Berikan jarak antar section sehingga tiap bagian mudah dicek
-3. Pastikan routing untuk frontend sudah benar
-4. Layouts digunakan sebagai container template dengan layout yang relatif mirip (header & footer)
-5. Gunakan includes jika section dirasa terlalu panjang atau untuk kebutuhan modular (product card dan sebagainya)
 6. Develop sesuai dengan branchnya untuk menghindari conflict atau tabrakan
 7. Sebelum push pastikan sudah pull terlebih dahulu
 8. PASTIKAN untuk tidak merge ke branch `main` jika fitur belum final dan/atau tanpa konfirmasi bersama
@@ -27,6 +24,9 @@ $ php artisan migrate:fresh --seed
 ```shell
 # Run composer to install packages
 $ composer install
+
+# To migrate database changes
+$ php artisan migrate
 ```
 
 ## Start project
@@ -35,12 +35,29 @@ $ php artisan serve
 ```
 
 ## Setup entry/resource
+Cek resource dan migration yang sudah ada sebagai referensi
 1. Buat model baru beserta migrasi
-`php artisan make:model IniTest -m`
-2. Isi migrasi sesuai kebutuhan (https://laravel.com/docs/12.x/migrations)
+```shell 
+php artisan make:model {NamaModel} -m
+```
+2. Isi migrasi
 3. Isi model
 4. Migrate file migration yang sudah dibuat tadi
-`php artisan migrate`
+```shell
+$ php artisan migrate
+```
 5. Buat resource filament (namanya samakan dengan model saja)
-`php artisan make:filament-resource IniTest`
+```shell
+$ php artisan make:filament-resource {NamaModel}
+```
 6. Isi schema (form) dan table sesuai yang dibutuhkan
+
+## Setup API
+Cek `app\Http\Controllers\Api\SingleController.php` dan `route/api.php` untuk referensi
+1. Buat controller API
+`php artisan make:controller Api/{Nama}Controller --api`
+2. Tambahkan route di routes/api.php, pastikan endpoint dan model sudah benar
+3. Isi controller sesuai kebutuhan
+
+## Generate API bearer token
+Access `POST /api/login` dengan body form-data `email` dan `password`, simpan bearer token ke dalam `.env` agar tidak perlu generate lagi
