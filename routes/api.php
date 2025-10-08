@@ -8,7 +8,7 @@ use App\Models\User;
 
 use App\Http\Controllers\Api\SingleController;
 
-Route::post('/login', function (Request $request) {
+Route::post('/generate-token', function (Request $request) {
     $credentials = $request->only('email', 'password');
     if (Auth::attempt($credentials)) {
         $user = Auth::user();
