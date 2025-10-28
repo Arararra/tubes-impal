@@ -25,11 +25,11 @@ class SingleSeeder extends Seeder
         Single::create([
             'title' => 'FAQ',
             'slug' => 'faq',
-            'accordions' => json_encode([
-                ['question' => 'Apakah roti dibuat setiap hari?', 'answer' => 'Ya, semua roti dibuat segar setiap pagi.'],
-                ['question' => 'Apakah tersedia layanan antar?', 'answer' => 'Ya, kami melayani pengantaran ke wilayah kota.'],
-                ['question' => 'Apakah menerima pesanan custom cake?', 'answer' => 'Tentu! Silakan hubungi kami via WhatsApp.'],
-            ]),
+            'accordions' => [
+                ['title' => 'Apakah roti dibuat setiap hari?', 'body' => 'Ya, semua roti dibuat segar setiap pagi.'],
+                ['title' => 'Apakah tersedia layanan antar?', 'body' => 'Ya, kami melayani pengantaran ke wilayah kota.'],
+                ['title' => 'Apakah menerima pesanan custom cake?', 'body' => 'Tentu! Silakan hubungi kami via WhatsApp.'],
+            ],
         ]);
     }
 }
