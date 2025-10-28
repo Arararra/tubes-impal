@@ -12,6 +12,8 @@ class OrderProduct extends Model
         'quantity', 
         'price'
     ];
+    
+    protected $appends = ['subtotal'];
 
     public function order()
     {
@@ -21,5 +23,10 @@ class OrderProduct extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function getSubtotalAttribute()
+    {
+        return $this->price * $this->quantity;
     }
 }
