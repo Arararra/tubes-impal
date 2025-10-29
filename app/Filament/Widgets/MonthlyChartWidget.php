@@ -10,6 +10,8 @@ class MonthlyChartWidget extends ChartWidget
 {
     protected static ?string $heading = 'Monthly Sales Chart';
 
+    protected int | string | array $columnSpan = 8;
+
     protected function getData(): array
     {
         $data = Order::select(
