@@ -41,7 +41,11 @@ class OrderResource extends Resource
                                         Forms\Components\TextInput::make('shipping_receipt')
                                             ->label('Shipping Receipt')
                                             ->nullable()
-                                            ->maxLength(255),
+                                            ->maxLength(255)
+                                            ->live(debounce: 500)
+                                            ->afterStateUpdated(fn ($state, callable $set) =>
+                                                $set('status', 'Shipped')
+                                            ),
                                         Forms\Components\Select::make('status')
                                             ->label('Order Status')
                                             ->options([
