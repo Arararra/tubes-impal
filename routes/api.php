@@ -8,8 +8,10 @@ use App\Models\User;
 
 use App\Http\Controllers\Api\SingleController;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::middleware('auth.bearer')->group(function () {
+    Route::get('/test', function (Request $request) {
+        return response()->json(['message' => 'Authorized']);
+    });
 
-Route::apiResource('/singles', SingleController::class);
+    Route::apiResource('/singles', SingleController::class);
+});
