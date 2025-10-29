@@ -13,7 +13,7 @@ class MonthlyChartWidget extends ChartWidget
     protected function getData(): array
     {
         $data = Order::select(
-            DB::raw('strftime(\'%Y-%m\', created_at) as month'),
+            DB::raw('DATE_FORMAT(created_at, "%Y-%m") as month'),
             DB::raw('COUNT(*) as total_orders'),
             DB::raw('SUM(total) as total_revenue')
         )
