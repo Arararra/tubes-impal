@@ -17,7 +17,7 @@ class OrderSeeder extends Seeder
     {
         $faker = Faker::create('id_ID');
 
-        for ($i = 0; $i < 8; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             $createdAt = $faker->dateTimeBetween('-30 days', 'now');
             $updatedAt = $faker->dateTimeBetween($createdAt, 'now');
             
