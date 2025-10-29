@@ -13,19 +13,16 @@ class MonthlyChartWidget extends ChartWidget
     protected function getData(): array
     {
         $data = Order::select(
-            DB::raw('DATE_FORMAT(created_at, "%Y-%m") as month'),
+            DB::raw('DATE(created_at) as day'),
             DB::raw('COUNT(*) as total_orders'),
             DB::raw('SUM(total) as total_revenue')
         )
-        ->where('created_at', '>=', now()->subMonths(12))
-        ->groupBy('month')
-        ->orderBy('month')
+        ->where('created_at', '>=', now()->subDays(30))
+        ->groupBy('day')
+        ->orderBy('day')
         ->get();
 
-        $labels = $data->pluck('month')->map(function ($month) {
-            return date('M Y', strtotime($month . '-01'));
-        })->toArray();
-
+        $labels = $data->pluck('day')->map(fn($day) => date('d M', strtotime($day)))->toArray();
         $orders = $data->pluck('total_orders')->toArray();
         $revenue = $data->pluck('total_revenue')->toArray();
 
@@ -35,15 +32,17 @@ class MonthlyChartWidget extends ChartWidget
                     'label' => 'Total Orders',
                     'data' => $orders,
                     'borderColor' => 'rgb(75, 192, 192)',
-                    'backgroundColor' => 'rgba(75, 192, 192, 0.2)',
+                    'backgroundColor' => 'rgba(75, 192, 192, 0.3)',
                     'yAxisID' => 'y',
+                    'tension' => 0.3,
                 ],
                 [
                     'label' => 'Total Revenue (Rp)',
                     'data' => $revenue,
                     'borderColor' => 'rgb(255, 99, 132)',
-                    'backgroundColor' => 'rgba(255, 99, 132, 0.2)',
+                    'backgroundColor' => 'rgba(255, 99, 132, 0.3)',
                     'yAxisID' => 'y1',
+                    'tension' => 0.3,
                 ],
             ],
             'labels' => $labels,
@@ -79,6 +78,11 @@ class MonthlyChartWidget extends ChartWidget
                     'grid' => [
                         'drawOnChartArea' => false,
                     ],
+                ],
+            ],
+            'plugins' => [
+                'legend' => [
+                'position' => 'bottom',
                 ],
             ],
         ];
