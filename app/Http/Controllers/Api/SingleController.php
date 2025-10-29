@@ -29,18 +29,16 @@ class SingleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Single $single)
     {
-        $single = Single::findOrFail($id);
         return response()->json($single);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Single $single)
     {
-        $single = Single::findOrFail($id);
         $single->update($request->all());
         return response()->json($single);
     }
@@ -48,9 +46,8 @@ class SingleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Single $single)
     {
-        $single = Single::findOrFail($id);
         $single->delete();
         return response()->json(null, 204);
     }

@@ -17,4 +17,9 @@ class Single extends Model
     protected $casts = [
         'accordions' => 'array',
     ];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }
