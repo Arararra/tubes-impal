@@ -3,7 +3,7 @@
 @section('title', 'Home')
 
 @section('content')
-  <div style="padding: 4.5rem">
+  <div style="padding: 4.5rem; padding-top: 10rem; background-color: #f4f4f4;">
     <h1>Ini Adalah the Home Page</h1>
     <p>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. 
