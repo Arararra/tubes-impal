@@ -4,26 +4,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
-use App\Models\User;
-
 use App\Http\Controllers\Api\SingleController;
+use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\ReviewController;
 
-Route::post('/generate-token', function (Request $request) {
-    $credentials = $request->only('email', 'password');
-    if (Auth::attempt($credentials)) {
-        $user = Auth::user();
-        $token = $user->createToken('API Token')->plainTextToken;
-        return response()->json(['token' => $token]);
-    }
-    return response()->json(['error' => 'Unauthorized'], 401);
+Route::middleware('auth.bearer')->group(function () {
+    Route::get('/', function (Request $request) {
+        return response()->json(['message' => 'Authorized']);
+    });
+
+    Route::apiResource('/singles', SingleController::class);
+    Route::apiResource('/categories', CategoryController::class);
+    Route::apiResource('/products', ProductController::class);
+    Route::apiResource('/orders', OrderController::class);
+    Route::apiResource('/reviews', ReviewController::class);
 });
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
-
-Route::apiResource('/singles', SingleController::class)->middleware('auth:sanctum');

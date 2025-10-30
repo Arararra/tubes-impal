@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Single;
+use App\Models\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class SingleController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return response()->json(Single::all());
+        return response()->json(Category::all());
     }
 
     /**
@@ -21,33 +21,33 @@ class SingleController extends Controller
      */
     public function store(Request $request)
     {
-        $single = Single::create($request->all());
-        return response()->json($single, 201);
+        $category = Category::create($request->all());
+        return response()->json($category, 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Single $single)
+    public function show(Category $category)
     {
-        return response()->json($single);
+        return response()->json($category);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Single $single)
+    public function update(Request $request, Category $category)
     {
-        $single->update($request->all());
-        return response()->json($single);
+        $category->update($request->all());
+        return response()->json($category);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Single $single)
+    public function destroy(Category $category)
     {
-        $single->delete();
+        $category->delete();
         return response()->json(null, 204);
     }
 }
