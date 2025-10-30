@@ -3,7 +3,7 @@
 @section('title', 'Home')
 
 @section('content')
-  <div style="text-align: center; padding: 4.5rem">
+  <div style="padding: 4.5rem">
     <h1>Ini Adalah the Home Page</h1>
     <p>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. 
@@ -13,5 +13,9 @@
     <a href="{{ url('/admin') }}">
       <h1>TEKAN LINK INI UNTUK AKSES ADMIN PAGE</h1>
     </a>
+
+    @dump($categories)
+    @dump($products)
+    @dump($reviews)
   </div>
 @endsection

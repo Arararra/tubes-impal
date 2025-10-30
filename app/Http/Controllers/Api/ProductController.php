@@ -13,7 +13,13 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return response()->json(Product::with('categories')->get());
+        $products = Product::with(['categories:id,title,image'])->get()
+            ->map(function ($product) {
+                $product->categories->makeHidden('pivot');
+                return $product;
+            });
+
+        return response()->json($products);
     }
 
     /**
@@ -26,16 +32,22 @@ class ProductController extends Controller
         if ($request->has('category_ids')) {
             $product->categories()->sync($request->category_ids);
         }
+        
+        $product->load(['categories:id,title,image']);
+        $product->categories->makeHidden('pivot');
 
-        return response()->json($product->load('categories'), 201);
+        return response()->json($product, 201);
     }
 
     /**
      * Display the specified resource.
      */
     public function show(Product $product)
-    {
-        return response()->json($product->load('categories'));
+    {   
+        $product->load(['categories:id,title,image']);
+        $product->categories->makeHidden('pivot');
+
+        return response()->json($product);
     }
 
     /**
@@ -49,7 +61,10 @@ class ProductController extends Controller
             $product->categories()->sync($request->category_ids);
         }
 
-        return response()->json($product->load('categories'));
+        $product->load(['categories:id,title,image']);
+        $product->categories->makeHidden('pivot');
+
+        return response()->json($product);
     }
 
     /**
