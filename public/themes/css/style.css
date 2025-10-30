@@ -7626,7 +7626,7 @@ textarea.form-control {
     width: 100%;
     height: 30px;
     z-index: 10;
-    background-image: url(../img/bg/home-3/banner-bg.png);
+    background-image: url(../img/banner-bg.png);
     background-repeat: repeat-x; }
   #homepage-3 .ps-home-about .ps-section__header {
     padding-top: 60px;
@@ -8797,7 +8797,7 @@ textarea.form-control {
   .header--default .header__actions > a {
     color: #000; }
   .header--default .header__actions .ps-cart--mini > .ps-cart__toggle {
-    color: #000; }
+    color: #ffffff; }
   .header--default .header__left {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -8810,7 +8810,7 @@ textarea.form-control {
       margin-bottom: 0;
       font-weight: 500;
       font-size: 18px;
-      color: #000; }
+      color: #ffffff; }
       .header--default .header__left p i {
         margin-right: 10px; }
   .header--default .header__center {

@@ -2,7 +2,9 @@
   <div class="ps-cart__items">
     <div class="ps-product--mini-cart">
       <div class="ps-product__thumbnail">
-        <a href="#"><img src="img/product/12.png" alt=""></a>
+        <a href="#">
+          <img src="{{ asset('storage/products/roti-coklat.jpg') }}" alt="">
+        </a>
       </div>
       <div class="ps-product__content">
         <span class="ps-btn--close"></span>

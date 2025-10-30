@@ -2,7 +2,7 @@
 <header class="header header--default" data-sticky="true">
   {{-- open hour --}}
   <div class="header__left">
-    <p><i class="fa fa-clock-o"></i> 09:00 - 21:00</p>
+    <p><i class="fa fa-clock-o"></i> 07:00 am - 09:00 pm</p>
   </div>
 
   {{-- desktop top nav --}}
@@ -13,7 +13,7 @@
           <a href="{{ url('/') }}">Home</a>
         </li>
         <li>
-          <a href="{{ url('katalog') }}">Katalog</a>
+          <a href="{{ url('catalog') }}">Katalog</a>
         </li>
       </ul>
     </nav>
@@ -82,7 +82,7 @@
         <a href="{{ url('/') }}">Home</a>
       </li>
       <li>
-        <a href="{{ url('katalog') }}">Katalog</a>
+        <a href="{{ url('catalog') }}">Katalog</a>
       </li>
       <li class="current-menu-item">
         <a href="{{ url('about') }}">About</a>
