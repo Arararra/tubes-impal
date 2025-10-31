@@ -23,6 +23,9 @@
 .object-fit-cover {
   object-fit: cover !important;
 }
+.cursor-pointer {
+  cursor: pointer !important;
+}
 .cart-items {
   max-height: 73vh;
   overflow-x: hidden;

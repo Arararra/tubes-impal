@@ -25,6 +25,7 @@ function removeFromCart(id) {
   let cart = getCart().filter(item => item.id != id);
   saveCart(cart);
   alert('Produk telah dihapus dari cart!');
+  renderCart();
 }
 
 function clearCart() {
@@ -50,7 +51,9 @@ function renderCart() {
     ? cart.map(item => `
       <div class="ps-product--mini-cart">
         <div class="ps-product__thumbnail">
-          <a href="#"><img src="${item.image}" alt="${item.name}" class="h-100 object-fit-cover"></a>
+          <a href="#">
+            <img src="${item.image}" alt="${item.name}" class="h-100 object-fit-cover">
+          </a>
         </div>
         <div class="ps-product__content">
           <span class="ps-btn--close" onclick="removeFromCart(${item.id})"></span>
@@ -71,7 +74,7 @@ function renderCart() {
   countElements.forEach(s => s.textContent = calcCount(cart));
 }
 
-document.querySelectorAll('.add-to-cart').forEach(btn => {
+document.querySelectorAll('.cart-add').forEach(btn => {
   btn.addEventListener('click', () => {
     const product = {
       id: btn.dataset.id,
