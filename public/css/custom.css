@@ -77,3 +77,6 @@
 .ps-shopping .ps-shopping__top figure .select2 {
   margin-right: 0;
 }
+.ps-cart--mobile .ps-cart__footer h3 {
+  text-transform: none;
+}
