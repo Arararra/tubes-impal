@@ -69,31 +69,39 @@ function renderCart() {
   const itemContainers = document.querySelectorAll('.cart-items');
   const subtotalElements = document.querySelectorAll('.cart-subtotal');
   const countElements = document.querySelectorAll('.cart-count');
+  const previewContainer = document.querySelectorAll('.order-preview');
 
-  const html = cart.length
-    ? cart.map(item => `
-      <div class="ps-product--mini-cart">
-        <div class="ps-product__thumbnail">
-          <a href="#">
-            <img src="${item.image}" alt="${item.name}" class="h-100 object-fit-cover">
-          </a>
-        </div>
-        <div class="ps-product__content">
-          <span class="ps-btn--close" onclick="removeFromCart(${item.id})"></span>
-          <a class="ps-product__title" href="javascript:;">${item.name}</a>
-          <p><strong>
-            Quantity: 
-            <input type="number" min="1" value="${item.qty}" onchange="setQty(${item.id}, this.value)" 
-              class="border rounded-pill text-center ml-1 pb-2" style="width: 6.5rem">
-          </strong></p>
-          <small>Rp. ${item.price.toLocaleString('id-ID')}</small>
-        </div>
+  const html = cart.length ? cart.map(item => `
+    <div class="ps-product--mini-cart">
+      <div class="ps-product__thumbnail">
+        <a href="#">
+          <img src="${item.image}" alt="${item.name}" class="h-100 object-fit-cover">
+        </a>
       </div>
-    `).join('')
-    : '<p class="text-center py-3">Cart masih kosong.</p>';
+      <div class="ps-product__content">
+        <span class="ps-btn--close" onclick="removeFromCart(${item.id})"></span>
+        <a class="ps-product__title" href="javascript:;">${item.name}</a>
+        <p><strong>
+          Quantity: 
+          <input type="number" min="1" value="${item.qty}" onchange="setQty(${item.id}, this.value)" 
+            class="border rounded-pill text-center ml-1 px-4" style="width: 8rem; height: 4rem">
+        </strong></p>
+        <small>Rp. ${item.price.toLocaleString('id-ID')}</small>
+      </div>
+    </div>
+  `).join('')
+  : '<p class="text-center py-3">Cart masih kosong.</p>';
 
-  // render ke semua elemen cart-items
+  const previewHtml = cart.length ? cart.map(item => `
+    <p>
+      ${item.qty} ${item.name} <span>Rp. ${(item.price * item.qty).toLocaleString('id-ID')}</span>
+    </p>
+  `).join('')
+  : '<p class="text-center py-3">Cart masih kosong.</p>';
+
+  // render ke cart-items dan order-preview
   itemContainers.forEach(c => c.innerHTML = html);
+  previewContainer.forEach(c => c.innerHTML = previewHtml);
 
   // render subtotal dan count
   const subtotal = `Rp. ${calcSubtotal(cart).toLocaleString('id-ID')}`;

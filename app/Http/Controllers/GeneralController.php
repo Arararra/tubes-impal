@@ -82,6 +82,10 @@ class GeneralController extends Controller
             'selectedSort' => $sort,
         ]);
     }
+    
+    public function checkout() {
+        return view('checkout', []);
+    }
 
     public function single($slug) {
         $apiHost = env('API_HOST');
