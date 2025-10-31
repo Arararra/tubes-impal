@@ -32,6 +32,10 @@
   overflow-y: auto;
   border-bottom: .3rem #e1d0be solid !important;
 }
+.cart-items input[type=number]::-webkit-inner-spin-button,
+.cart-items input[type=number]::-webkit-outer-spin-button {
+  opacity: 1;
+}
 @media (min-width: 991px) {
   .sticky-lg-top {
     position: sticky;
