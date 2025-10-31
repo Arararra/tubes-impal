@@ -34,6 +34,28 @@ function clearCart() {
   notify('Cart telah dikosongkan!', 'error');
 }
 
+function changeQty(id, delta) {
+  let cart = getCart();
+  let item = cart.find(i => i.id == id);
+  if (!item) return;
+
+  item.qty = Math.max(1, item.qty + delta); // minimal 1
+  saveCart(cart);
+}
+
+function setQty(id, value) {
+  let cart = getCart();
+  let item = cart.find(i => i.id == id);
+  if (!item) return;
+
+  let qty = parseInt(value);
+  if (isNaN(qty) || qty < 1) qty = 1;
+  item.qty = qty;
+
+  saveCart(cart);
+}
+
+
 function calcSubtotal(cart) {
   return cart.reduce((sum, item) => sum + item.price * item.qty, 0);
 }
@@ -59,7 +81,11 @@ function renderCart() {
         <div class="ps-product__content">
           <span class="ps-btn--close" onclick="removeFromCart(${item.id})"></span>
           <a class="ps-product__title" href="javascript:;">${item.name}</a>
-          <p><strong>Quantity: ${item.qty}</strong></p>
+          <p><strong>
+            Quantity: 
+            <input type="number" min="1" value="${item.qty}" onchange="setQty(${item.id}, this.value)" 
+              class="border rounded-pill text-center ml-1 pb-2" style="width: 6.5rem">
+          </strong></p>
           <small>Rp. ${item.price.toLocaleString('id-ID')}</small>
         </div>
       </div>
@@ -91,6 +117,7 @@ document.querySelectorAll('.cart-clear').forEach(btn => {
     clearCart()
   });
 });
+renderCart();
 
 function notify(message, type = 'success') {
   Toastify({
