@@ -28,6 +28,12 @@
   object-fit: cover !important;
 }
 
+@media (min-width: 992px) {
+  .sticky-lg-top {
+    position: sticky;
+    top: 10rem;
+  }
+}
 
 /* Custom Theme */
 .ps-hero {
@@ -50,4 +56,10 @@
 .ps-product .ps-product__price {
   text-transform: none;
 }
-
+.widget_categories ul li a:hover {
+  font-size: 3rem;
+}
+.widget_categories ul li a.active {
+  font-size: 3rem;
+  font-weight: bolder;
+}

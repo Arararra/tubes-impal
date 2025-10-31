@@ -1,8 +1,6 @@
 @extends('layouts.base')
 
 @section('title', 'Katalog')
-@section('customStyles')
-@endsection
 
 @section('content')
   <div class="ps-hero bg--cover" data-background="{{ asset('themes/img/shop-hero.png') }}">
@@ -23,29 +21,39 @@
     <div class="container-fluid">
       <div class="ps-shopping ps-shopping--fullwidth">
         <div class="ps-shopping__left">
-          <aside class="widget widget_shop widget_categories">
-            <h3 class="widget-title">Categories</h3>
-            <ul>
-              @foreach ($categories as $item)
-                <li><a href="{{ url("catalog?category=${item['id']}") }}">{{ $item['title'] }}</a></li>
-              @endforeach
-            </ul>
-          </aside>
-          <aside class="widget widget_shop widget_shop-filter">
-            <h3 class="widget-title">Filter price</h3>
-            <div class="ps-slider" data-default-min="0" data-default-max="100" data-max="100" data-step="5" data-unit="$"></div>
-            <p class="ps-slider__meta">Price:<span class="ps-slider__value ps-slider__min"></span>-<span class="ps-slider__value ps-slider__max"></span></p>
-          </aside>
+          <div class="sticky-lg-top">
+            <aside class="widget widget_shop widget_categories">
+              <h3 class="widget-title">Kategori</h3>
+              <ul>
+                @foreach ($categories as $item)
+                  <li>
+                    <a href="{{ url("catalog?category=${item['id']}") }}"  
+                      @class(['active' => Request::get('category') == $item['id']])>
+                      {{ $item['title'] }}
+                    </a>
+                  </li>
+                @endforeach
+              </ul>
+            </aside>
+            <aside class="widget widget_shop widget_shop-filter">
+              <h3 class="widget-title">Filter harga</h3>
+              <div class="ps-slider mr-4" data-default-min="0" data-default-max="100" data-max="100" data-step="5" data-unit="$"></div>
+              <p class="ps-slider__meta">
+                Price:<span class="ps-slider__value ps-slider__min"></span>-<span class="ps-slider__value ps-slider__max"></span>
+              </p>
+            </aside>
+          </div>
         </div>
         
         <div class="ps-shopping__right">
           <div class="ps-shopping__top">
-            <p>Show 1-12 of 35 result</p>
+            <p>Menampilkan 1-12 dari 35 hasil</p>
             <figure>
-              <select class="ps-select" title="Default Sorting">
-                <option value="1">Default Sorting 1</option>
-                <option value="2">Default Sorting 2</option>
-                <option value="3">Default Sorting 3</option>
+              <select class="ps-select" title="Sort By">
+                <option value="1">Nama A-Z</option>
+                <option value="2">Nama Z-A</option>
+                <option value="3">Harga Terendah</option>
+                <option value="4">Harga Tertinggi</option>
               </select>
             </figure>
           </div>
