@@ -57,7 +57,7 @@ function renderCart() {
         </div>
         <div class="ps-product__content">
           <span class="ps-btn--close" onclick="removeFromCart(${item.id})"></span>
-          <a class="ps-product__title" href="#">${item.name}</a>
+          <a class="ps-product__title" href="javascript:;">${item.name}</a>
           <p><strong>Quantity: ${item.qty}</strong></p>
           <small>Rp. ${item.price.toLocaleString('id-ID')}</small>
         </div>

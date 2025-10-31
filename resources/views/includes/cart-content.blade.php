@@ -6,7 +6,7 @@
     </h3>
     <h3>Sub Total:<strong class="cart-subtotal">Rp. 0</strong></h3>
     <figure>
-      <a class="ps-btn ps-btn--dark w-100" href="#">Checkout</a>
+      <a class="ps-btn ps-btn--dark w-100" href="javascript:;">Checkout</a>
     </figure>
   </div>
 </div>

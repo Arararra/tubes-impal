@@ -20,19 +20,19 @@
           <div class="mt-20">
             <ul class="ps-list--social">
               <li>
-                <a href="#"><i class="fa fa-facebook text-white"></i></a>
+                <a href="javascript:;"><i class="fa fa-facebook text-white"></i></a>
               </li>
               <li>
-                <a href="#"><i class="fa fa-twitter text-white"></i></a>
+                <a href="javascript:;"><i class="fa fa-twitter text-white"></i></a>
               </li>
               <li>
-                <a href="#"><i class="fa fa-google-plus text-white"></i></a>
+                <a href="javascript:;"><i class="fa fa-google-plus text-white"></i></a>
               </li>
               <li>
-                <a href="#"><i class="fa fa-instagram text-white"></i></a>
+                <a href="javascript:;"><i class="fa fa-instagram text-white"></i></a>
               </li>
               <li>
-                <a href="#"><i class="fa fa-youtube-play text-white"></i></a>
+                <a href="javascript:;"><i class="fa fa-youtube-play text-white"></i></a>
               </li>
             </ul>
           </div>

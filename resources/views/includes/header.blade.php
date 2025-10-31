@@ -38,7 +38,7 @@
   <div class="header__right">
     <div class="header__actions">
       <div class="ps-cart--mini">
-        <a class="ps-cart__toggle" href="#">
+        <a class="ps-cart__toggle" href="javascript:;">
           <i class="fa fa-shopping-basket"></i>
           <span><i class="cart-count">0</i></span>
         </a>
@@ -52,7 +52,7 @@
 <header class="header header--mobile" data-sticky="false">
   <div class="header__content">
     <div class="header__center">
-      <a class="ps-logo" href="#">
+      <a class="ps-logo" href="{{ url('/') }}">
         <img src="{{ asset('themes/img/logo.png') }}" alt="">
       </a>
     </div>

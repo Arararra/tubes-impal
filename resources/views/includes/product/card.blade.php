@@ -13,7 +13,7 @@
             </span>                              
           @endforeach
         </div>
-        <a class="ps-product__title" href="{{ url("catalog/${item['id']}") }}">{{ $item['title'] }}</a>
+        <a class="ps-product__title" href="javascript:;">{{ $item['title'] }}</a>
         <span class="ps-product__price">Rp. {{ number_format($item['price'], 0, ',', '.') }}</span>
       </div>
       <div class="ps-product__shopping h-100 d-flex align-items-center justify-content-center">
