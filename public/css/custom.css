@@ -11,27 +11,31 @@
 .rounded-pill-bottom {
   border-radius: 0 0 3rem 3rem !important;
 }
-
 .rotate-n180 {
   transform: rotate(-180deg);
 }
-
 .overflow-hidden {
   overflow: hidden !important;
 }
-
 .border {
   border: .3rem solid #e1d0be !important;
 }
-
 .object-fit-cover {
   object-fit: cover !important;
 }
-
-@media (min-width: 992px) {
+.cart-items {
+  max-height: 73vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-bottom: .3rem #e1d0be solid !important;
+}
+@media (min-width: 991px) {
   .sticky-lg-top {
     position: sticky;
     top: 10rem;
+  }
+  .cart-items {
+    max-height: 62vh;
   }
 }
 

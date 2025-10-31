@@ -40,6 +40,7 @@
     <script src="{{ asset('themes/plugins/jquery.slimscroll.min.js') }}"></script>
     <script src="{{ asset('themes/plugins/select2/dist/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('themes/js/main.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
     @yield('customScripts', '')
   </body>
 </html>

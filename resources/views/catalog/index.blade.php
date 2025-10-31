@@ -9,19 +9,9 @@
 @endphp
 
 @section('content')
-  <div class="ps-hero bg--cover" data-background="{{ asset('themes/img/shop-hero.png') }}">
-    <div class="ps-hero__container">
-      <div class="ps-breadcrumb">
-        <ul class="breadcrumb">
-          <li>
-            <a href="{{ url('/') }}">Home</a>
-          </li>
-          <li>Katalog</li>
-        </ul>
-      </div>
-      <h1 class="ps-hero__heading">Katalog</h1>
-    </div>
-  </div>
+  @include('includes.breadcrumb', [
+    'breadcrumb' => ['Katalog']
+  ])
 
   <div class="ps-page--shop">
     <div class="container-fluid">
@@ -48,13 +38,6 @@
                 @endforeach
               </ul>
             </aside>
-            {{-- <aside class="widget widget_shop widget_shop-filter">
-              <h3 class="widget-title">Filter harga</h3>
-              <div class="ps-slider mr-4" data-default-min="0" data-default-max="100" data-max="100" data-step="5" data-unit="$"></div>
-              <p class="ps-slider__meta">
-                Price:<span class="ps-slider__value ps-slider__min"></span>-<span class="ps-slider__value ps-slider__max"></span>
-              </p>
-            </aside> --}}
           </div>
         </div>
         
@@ -70,6 +53,7 @@
               <i class="fa fa-search position-absolute" style="right: 3rem; top: 50%; transform: translate(0, -50%);"></i>
             </div>
           </form>
+          
           <div class="ps-shopping__top">
             <p>Menampilkan {{ $start }}-{{ $end }} dari {{ $total }} hasil</p>
             <figure>
@@ -97,56 +81,18 @@
           <div class="ps-product-box">
             <div class="row">
               @foreach ($products as $item)
-                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6 ">
-                  <div class="ps-product border rounded overflow-hidden" style="background: #fff4e9;">
-                    <div class="ps-product__thumbnail">
-                      <img src="{{ env('API_HOST')."/storage/".$item['image'] }}" alt="" class="h-100 object-fit-cover" />
-                      <a class="ps-product__overlay" href="{{ url("catalog/${item['id']}") }}"></a>
-                    </div>
-                    <div class="ps-product__content p-4">
-                      <div class="ps-product__desc h-100 d-flex flex-column align-items-center justify-content-center">
-                        <div class="d-flex flex-wrap justify-content-center">
-                          @foreach ($item['categories'] as $cat)
-                            <span class="badge badge-pill text-white m-1" style="background: #7f462c; font-size: 90%">
-                              {{ $cat['title'] }}
-                            </span>                              
-                          @endforeach
-                        </div>
-                        <a class="ps-product__title" href="{{ url("catalog/${item['id']}") }}">{{ $item['title'] }}</a>
-                        <span class="ps-product__price">Rp. {{ number_format($item['price'], 0, ',', '.') }}</span>
-                      </div>
-                      <div class="ps-product__shopping h-100 d-flex align-items-center justify-content-center">
-                        <a class="ps-btn ps-product__add-to-cart" href="#">Add to cart</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                @include('includes.product.card', [
+                  'item' => $item
+                ])
               @endforeach
             </div>
           </div>
 
           <div class="ps-pagination">
-            <ul class="pagination">
-              <li class="{{ $currentPage == 1 ? 'disabled' : '' }}">
-                <a href="{{ $currentPage == 1 ? 'javascript:void(0)' : url()->current().'?'.http_build_query(array_merge(request()->except('page'), ['page' => $currentPage-1])) }}">
-                  <i class="fa fa-caret-left"></i>
-                </a>
-              </li>
-
-              @for ($i = 1; $i <= $lastPage; $i++)
-                <li class="{{ $currentPage == $i ? 'active' : '' }}">
-                  <a href="{{ $currentPage == $i ? 'javascript:void(0)' : url()->current().'?'.http_build_query(array_merge(request()->except('page'), ['page' => $i])) }}">
-                    {{ $i }}
-                  </a>
-                </li>
-              @endfor
-
-              <li class="{{ $currentPage == $lastPage ? 'disabled' : '' }}">
-                <a href="{{ $currentPage == $lastPage ? 'javascript:void(0)' : url()->current().'?'.http_build_query(array_merge(request()->except('page'), ['page' => $currentPage+1])) }}">
-                  <i class="fa fa-caret-right"></i>
-                </a>
-              </li>
-            </ul>
+            @include('includes.product.pagination', [
+              'currentPage' => $currentPage,
+              'lastPage' => $lastPage
+            ])
           </div>
         </div>
       </div>
@@ -155,7 +101,6 @@
 @endsection
 
 @section('customScripts')
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
   <script>
     $(function() {
       $('.ps-product .ps-product__thumbnail').matchHeight({
@@ -171,5 +116,5 @@
         remove: false
       });
     });
-  </script>   
+  </script>
 @endsection

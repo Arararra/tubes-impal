@@ -40,7 +40,7 @@
       <div class="ps-cart--mini">
         <a class="ps-cart__toggle" href="#">
           <i class="fa fa-shopping-basket"></i>
-          <span><i>1</i></span>
+          <span><i class="cart-count">0</i></span>
         </a>
         @include('includes.cart-content')
       </div>
