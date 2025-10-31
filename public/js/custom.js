@@ -5,6 +5,7 @@ function getCart() {
 
 function saveCart(cart) {
   document.cookie = `cart=${encodeURIComponent(JSON.stringify(cart))};path=/;max-age=${60 * 60 * 24 * 7}`;
+  renderCart();
 }
 
 function addToCart(product) {
@@ -18,19 +19,19 @@ function addToCart(product) {
   }
 
   saveCart(cart);
-  alert(`${product.name} berhasil ditambahkan ke cart!`);
+  notify(`${product.name} berhasil ditambahkan ke cart!`, 'success');
 }
 
 function removeFromCart(id) {
   let cart = getCart().filter(item => item.id != id);
   saveCart(cart);
-  alert('Produk telah dihapus dari cart!');
-  renderCart();
+  notify('Produk telah dihapus dari cart!', 'error');
 }
 
 function clearCart() {
   document.cookie = "cart=[];path=/;max-age=0";
-  alert('Cart telah dikosongkan!');
+  renderCart();
+  notify('Cart telah dikosongkan!', 'error');
 }
 
 function calcSubtotal(cart) {
@@ -68,7 +69,7 @@ function renderCart() {
   // render ke semua elemen cart-items
   itemContainers.forEach(c => c.innerHTML = html);
 
-  // render subtotal and count
+  // render subtotal dan count
   const subtotal = `Rp. ${calcSubtotal(cart).toLocaleString('id-ID')}`;
   subtotalElements.forEach(s => s.textContent = subtotal);
   countElements.forEach(s => s.textContent = calcCount(cart));
@@ -83,14 +84,22 @@ document.querySelectorAll('.cart-add').forEach(btn => {
       price: parseFloat(btn.dataset.price),
     };
     addToCart(product);
-    renderCart();
   });
 });
 document.querySelectorAll('.cart-clear').forEach(btn => {
   btn.addEventListener('click', () => {
     clearCart()
-    renderCart();
   });
 });
 
-renderCart();
+function notify(message, type = 'success') {
+  Toastify({
+    text: message,
+    duration: 3000,
+    gravity: 'top',
+    position: 'right',
+    backgroundColor: type == 'success' ? '#4CAF50' : '#f44336',
+    stopOnFocus: true,
+    close: true,
+  }).showToast();
+}
