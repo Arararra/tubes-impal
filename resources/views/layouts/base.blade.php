@@ -7,8 +7,8 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="author" content="kelompok-01-03">
-    <meta name="keywords" content="ambabakey">
-    <meta name="description" content="website coba coba ambabakey">
+    <meta name="keywords" content="ambabakery">
+    <meta name="description" content="Uenak banget loh ya">
 
     <title>@yield('title', 'Default Title') | {{ env('APP_NAME') }}</title>
 
@@ -20,14 +20,14 @@
     <link rel="stylesheet" href="{{ asset('themes/plugins/jquery-ui/jquery-ui.min.css') }}">
     <link rel="stylesheet" href="{{ asset('themes/plugins/chikery-icon/style.css') }}">
     <link rel="stylesheet" href="{{ asset('themes/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    @yield('customStyles', '')
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.1/dist/cdn.min.js"></script>
   </head>
   <body>
     @include('includes.header')
-
-    <div>
-      @yield('content')
-    </div>
-
+    @yield('content')
     @include('includes.footer')
     
     {{-- <script src="{{ asset('js/app.js') }}"></script> --}}

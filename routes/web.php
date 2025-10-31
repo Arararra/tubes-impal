@@ -18,3 +18,18 @@ Route::get('/', function () {
 		'reviews' => $reviews,
 	]);
 });
+
+Route::get('/{slug?}', function ($slug) {
+	$apiHost = env('API_HOST');
+  $token = env('BEARER_TOKEN');
+	
+  $single = Http::withToken($token)->get(url("$apiHost/api/singles/$slug"))->json();
+
+	if (!$single) abort(404);
+	
+  return view('single', [
+		'pageTitle' => $single['title'] ?? '404',
+		'body' => $single['body'] ?? '',
+		'accordions' => $single['accordions'] ?? [],
+	]);
+});

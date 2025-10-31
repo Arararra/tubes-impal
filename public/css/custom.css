@@ -1,0 +1,42 @@
+/* Custom Styles */
+[class*="rounded-"] {
+  transition: border-radius 0.3s ease;
+}
+.rounded-pill {
+  border-radius: 3rem !important;
+}
+.rounded-pill-top {
+  border-radius: 3rem 3rem 0 0 !important;
+}
+.rounded-pill-bottom {
+  border-radius: 0 0 3rem 3rem !important;
+}
+
+.fs-18 {
+  font-size: 18px !important;
+}
+
+.rotate-n180 {
+  transform: rotate(-180deg);
+}
+
+/* Custom Theme */
+.ps-hero {
+  min-height: 30rem;
+}
+
+.ps-hero__container {
+  top: 0;
+  margin-top: -6rem;
+  padding-top: 0;
+}
+@media (min-width: 1200px) {
+  .ps-hero__container {
+    margin-top: 6rem;
+    padding-top: 0; 
+  } 
+}
+
+.ps-home-about {
+  padding: 65px 0 60px;
+}

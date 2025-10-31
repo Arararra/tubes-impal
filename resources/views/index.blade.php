@@ -1,13 +1,23 @@
 @extends('layouts.base')
 
 @section('title', 'Home')
+@section('customStyles')
+  <style>
+    .header--default .header__actions .ps-cart--mini > .ps-cart__toggle {
+      color: #ffffff;
+    }
+    .header--default .header__left p {
+      color: #ffffff;
+    }
+  </style>
+@endsection
 
 @section('content')
   <div id="homepage-3">
     <div class="ps-home-banner">
       <div class="ps-banner ps-banner--1 bg--cover" data-background="{{ asset('themes/img/banner.jpg') }}">
         <div class="ps-banner__content">
-          <h3>Mr. Amba's Bakery</h3>
+          <h3>Amba Bakery</h3>
           <p>100% Natural, FRESH baked goods</p>
           <a href="{{ url('catalog') }}" class="ps-btn">Jelajah katalog</a>
           <br>
