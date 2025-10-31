@@ -27,6 +27,7 @@ Route::get('/catalog', function (Request $request) {
   $categories = Http::withToken($token)->get(url("$apiHost/api/categories"))->json();
   $products = Http::withToken($token)->get(url("$apiHost/api/products"))->json();
 
+	$search = $request->get('search');
 	$category = $request->get('category');
   $sort = $request->get('sort'); // 1=Nama A-Z, 2=Nama Z-A, 3=Harga Terendah, 4=Harga Tertinggi
   $page = $request->get('page', 1);
@@ -37,6 +38,12 @@ Route::get('/catalog', function (Request $request) {
 			return collect($p['categories'])->pluck('id')->contains(intval($category));
 		});
   }
+
+	if ($search) {
+		$products = array_filter($products, function ($p) use ($search) {
+			return stripos($p['title'], $search) !== false;
+		});
+	}
 
   $total = count($products);
   $products = array_slice($products, ($page - 1) * $perPage, $perPage);

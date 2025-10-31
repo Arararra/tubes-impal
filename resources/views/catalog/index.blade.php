@@ -59,6 +59,17 @@
         </div>
         
         <div class="ps-shopping__right">
+          <form method="GET" action="{{ url()->current() }}" class="mb-3">
+            @foreach (request()->except(['search', 'page']) as $key => $value)
+              <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+            @endforeach
+
+            <div class="form-group position-relative">
+              <input class="border form-control rounded-pill ps-4 pe-5" type="text" name="search" placeholder="Cari produk..."
+                value="{{ request('search') }}">
+              <i class="fa fa-search position-absolute" style="right: 3rem; top: 50%; transform: translate(0, -50%);"></i>
+            </div>
+          </form>
           <div class="ps-shopping__top">
             <p>Menampilkan {{ $start }}-{{ $end }} dari {{ $total }} hasil</p>
             <figure>
