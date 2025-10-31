@@ -63,3 +63,6 @@
   font-size: 3rem;
   font-weight: bolder;
 }
+.ps-shopping .ps-shopping__top figure .select2 {
+  margin-right: 0;
+}

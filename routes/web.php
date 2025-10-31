@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;;
 
 Route::get('/', function () {
 	$apiHost = env('API_HOST');
@@ -19,16 +20,52 @@ Route::get('/', function () {
 	]);
 });
 
-Route::get('/catalog', function () {
+Route::get('/catalog', function (Request $request) {
 	$apiHost = env('API_HOST');
   $token = env('BEARER_TOKEN');
 	
   $categories = Http::withToken($token)->get(url("$apiHost/api/categories"))->json();
   $products = Http::withToken($token)->get(url("$apiHost/api/products"))->json();
+
+	$category = $request->get('category');
+  $sort = $request->get('sort'); // 1=Nama A-Z, 2=Nama Z-A, 3=Harga Terendah, 4=Harga Tertinggi
+  $page = $request->get('page', 1);
+  $perPage = 8;
+
+	if ($category) {
+    $products = array_filter($products, function ($p) use ($category) {
+			return collect($p['categories'])->pluck('id')->contains(intval($category));
+		});
+  }
+
+  $total = count($products);
+  $products = array_slice($products, ($page - 1) * $perPage, $perPage);
+	
+	if ($sort) {
+    switch ($sort) {
+      case '1':
+        usort($products, fn($a, $b) => strcmp($a['title'], $b['title']));
+        break;
+      case '2':
+        usort($products, fn($a, $b) => strcmp($b['title'], $a['title']));
+        break;
+      case '3':
+        usort($products, fn($a, $b) => $a['price'] <=> $b['price']);
+        break;
+      case '4':
+        usort($products, fn($a, $b) => $b['price'] <=> $a['price']);
+        break;
+    }
+  }
 	
   return view('catalog.index', [
-		'categories' => $categories,
-		'products' => $products,
+    'categories' => $categories,
+    'products' => $products,
+    'total' => $total,
+    'perPage' => $perPage,
+    'currentPage' => $page,
+    'selectedCategory' => $category,
+    'selectedSort' => $sort,
 	]);
 });
 
