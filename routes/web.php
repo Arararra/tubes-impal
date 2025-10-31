@@ -19,6 +19,19 @@ Route::get('/', function () {
 	]);
 });
 
+Route::get('/catalog', function () {
+	$apiHost = env('API_HOST');
+  $token = env('BEARER_TOKEN');
+	
+  $categories = Http::withToken($token)->get(url("$apiHost/api/categories"))->json();
+  $products = Http::withToken($token)->get(url("$apiHost/api/products"))->json();
+	
+  return view('catalog.index', [
+		'categories' => $categories,
+		'products' => $products,
+	]);
+});
+
 Route::get('/{slug?}', function ($slug) {
 	$apiHost = env('API_HOST');
   $token = env('BEARER_TOKEN');

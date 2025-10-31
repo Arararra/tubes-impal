@@ -12,10 +12,6 @@
   border-radius: 0 0 3rem 3rem !important;
 }
 
-.fs-18 {
-  font-size: 18px !important;
-}
-
 .rotate-n180 {
   transform: rotate(-180deg);
 }
