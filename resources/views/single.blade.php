@@ -2,6 +2,7 @@
 
 @section('title', $pageTitle)
 @section('customStyles')
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.1/dist/cdn.min.js"></script>
   <style>
     .attachment__caption {
       display: none !important;

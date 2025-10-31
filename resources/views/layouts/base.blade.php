@@ -23,8 +23,6 @@
     <link rel="stylesheet" href="{{ asset('themes/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     @yield('customStyles', '')
-
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.1/dist/cdn.min.js"></script>
   </head>
   <body>
     @include('includes.header')

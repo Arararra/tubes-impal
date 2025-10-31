@@ -57,6 +57,7 @@
               </select>
             </figure>
           </div>
+          
           <div class="ps-product-box">
             <div class="row">
               @foreach ($products as $item)
@@ -68,6 +69,13 @@
                     </div>
                     <div class="ps-product__content p-4">
                       <div class="ps-product__desc h-100 d-flex flex-column align-items-center justify-content-center">
+                        <div class="d-flex flex-wrap justify-content-center">
+                          @foreach ($item['categories'] as $cat)
+                            <span class="badge badge-pill text-white m-1" style="background: #7f462c; font-size: 90%">
+                              {{ $cat['title'] }}
+                            </span>                              
+                          @endforeach
+                        </div>
                         <a class="ps-product__title" href="{{ url("catalog/${item['id']}") }}">{{ $item['title'] }}</a>
                         <span class="ps-product__price">Rp. {{ number_format($item['price'], 0, ',', '.') }}</span>
                       </div>
@@ -97,6 +105,7 @@
 @endsection
 
 @section('customScripts')
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
   <script>
     $(function() {
       $('.ps-product .ps-product__thumbnail').matchHeight({
