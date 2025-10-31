@@ -1,6 +1,6 @@
 /* Custom Styles */
-[class*="rounded-"] {
-  transition: border-radius 0.3s ease;
+.rounded {
+  border-radius: 1rem !important;
 }
 .rounded-pill {
   border-radius: 3rem !important;
@@ -16,11 +16,23 @@
   transform: rotate(-180deg);
 }
 
+.overflow-hidden {
+  overflow: hidden !important;
+}
+
+.border {
+  border: .3rem solid #e1d0be !important;
+}
+
+.object-fit-cover {
+  object-fit: cover !important;
+}
+
+
 /* Custom Theme */
 .ps-hero {
   min-height: 30rem;
 }
-
 .ps-hero__container {
   top: 0;
   margin-top: -6rem;
@@ -32,7 +44,10 @@
     padding-top: 0; 
   } 
 }
-
 .ps-home-about {
   padding: 65px 0 60px;
 }
+.ps-product .ps-product__price {
+  text-transform: none;
+}
+

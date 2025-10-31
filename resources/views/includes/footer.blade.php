@@ -12,7 +12,7 @@
         </div>
       </div>
 
-      <div class="ps-footer__left d-flex justify-content-center align-items-center">
+      <div class="ps-footer__left d-flex justify-content-center align-items-end">
         <aside class="widget widget_footer text-center mb-0 pb-0">
           <h3 class="widget-title">Opening Time</h3>
           <p>Senin - Jum'at:  <span>07:00 am - 09:00 pm</span></p>

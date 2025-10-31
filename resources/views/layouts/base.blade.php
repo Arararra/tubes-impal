@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{ asset('themes/plugins/bootstrap4/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('themes/plugins/lightGallery-master/dist/css/lightgallery.min.css') }}">
     <link rel="stylesheet" href="{{ asset('themes/plugins/jquery-ui/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('themes/plugins/select2/dist/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('themes/plugins/chikery-icon/style.css') }}">
     <link rel="stylesheet" href="{{ asset('themes/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
@@ -39,6 +40,8 @@
     <script src="{{ asset('themes/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('themes/plugins/sticky-sidebar/dist/sticky-sidebar.min.js') }}"></script>
     <script src="{{ asset('themes/plugins/jquery.slimscroll.min.js') }}"></script>
+    <script src="{{ asset('themes/plugins/select2/dist/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('themes/js/main.js') }}"></script>
+    @yield('customScripts', '')
   </body>
 </html>

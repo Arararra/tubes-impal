@@ -6,6 +6,9 @@
     .attachment__caption {
       display: none !important;
     }
+    [class*="rounded-"] {
+      transition: border-radius 0.3s ease;
+    }
     .rounded-pill-bottom {
       transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
       overflow: hidden;
@@ -56,7 +59,7 @@
                     style="transition: transform 0.3s ease;"></i>
                 </div>
 
-                <div class="card card-body rounded-pill-bottom overflow-hidden" 
+                <div class="card card-body rounded-pill-bottom" 
                   style="background: #fff4e9;" :class="{ 'p-4 show': openIndex == index }">
                   <p class="mb-0" x-html="item.body"></p>
                 </div>
