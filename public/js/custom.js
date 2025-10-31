@@ -86,5 +86,11 @@ document.querySelectorAll('.cart-add').forEach(btn => {
     renderCart();
   });
 });
+document.querySelectorAll('.cart-clear').forEach(btn => {
+  btn.addEventListener('click', () => {
+    clearCart()
+    renderCart();
+  });
+});
 
 renderCart();
