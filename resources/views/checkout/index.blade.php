@@ -8,9 +8,9 @@
   ])
 
   <div class="container">
-    <div class="ps-checkout">
+    <form action="{{ route('checkout-payment') }}" method="post" class="ps-checkout">
       <div class="ps-checkout__left">
-        <form class="ps-form--checkout" action="#" method="post">
+        <div class="ps-form--checkout">
           <h4>Data Pelanggan</h4>
           <div class="form-group">
             <label>Nama</label>
@@ -19,10 +19,6 @@
           <div class="form-group">
             <label>Nomor Whatsapp</label>
             <input class="form-control border rounded-pill" type="text">
-          </div>
-          <div class="form-group">
-            <label>Alamat</label>
-            <textarea class="form-control border rounded-pill" rows="4"></textarea>
           </div>
           <div class="row">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 ">
@@ -38,7 +34,11 @@
               </div>
             </div>
           </div>
-        </form>
+          <div class="form-group">
+            <label>Alamat Lengkap</label>
+            <textarea class="form-control border rounded-pill" rows="4"></textarea>
+          </div>
+        </div>
       </div>
 
       <div class="ps-checkout__right">
@@ -51,28 +51,14 @@
             <div class="order-preview"></div>
             <div class="ps-block__divider"></div>
             <p class="total">
-              Total <strong class="cart-subtotal">$48.00</strong>
+              Total <strong class="cart-subtotal">Rp. 0</strong>
             </p>
           </div>
-          <div class="ps-block__payment-methond">
-            <div class="ps-radio">
-              <input class="form-control" type="radio" id="order-1" name="order"/>
-              <label for="order-1">Direct bank transfer</label>
-            </div>
-            <div class="ps-radio">
-              <input class="form-control" type="radio" id="order-2" name="order"/>
-              <label for="order-2">Cheque Payment</label>
-            </div>
-            <div class="ps-radio">
-              <input class="form-control" type="radio" id="order-3" name="order"/>
-              <label for="order-3">Paypal <i class='fa fa-cc-mastercard'></i><i class='fa fa-cc-paypal'></i><i class='fa fa-cc-visa'></i><i class='fa fa-cc-discover'></i></label>
-            </div>
-          </div>
-          <div class="ps-block__footer">
-            <button class="ps-btn ps-btn--fullwidth">Place Order</button>
+          <div class="ps-block__footer mt-5">
+            <button type="submit" class="ps-btn ps-btn--fullwidth">Place Order</button>
           </div>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 @endsection

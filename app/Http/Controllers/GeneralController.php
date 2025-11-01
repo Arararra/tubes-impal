@@ -84,7 +84,10 @@ class GeneralController extends Controller
     }
     
     public function checkout() {
-        return view('checkout', []);
+        return view('checkout.index', []);
+    }
+    public function checkoutPayment() {
+        return view('checkout.index', []);
     }
 
     public function single($slug) {
