@@ -18,15 +18,15 @@
           <div class="form-group position-relative">
             <input class="border form-control rounded-pill ps-4 pe-5" type="text" name="whatsapp" placeholder="Masukkan nomor whatsapp..."
               value="{{ request('whatsapp') }}" required>
-            <i class="fa fa-search position-absolute" style="right: 3rem; top: 50%; transform: translate(0, -50%);"></i>
+            <i class="fa fa-whatsapp position-absolute" style="right: 3rem; top: 50%; transform: translate(0, -50%);"></i>
           </div>
         </div>
         <div class="col-12 col-md-6 col-lg-5">
           <label for="invoice" class="h3 mb-10">Invoice <i class="text-danger">*</i></label>
           <div class="form-group position-relative">
-            <input class="border form-control rounded-pill ps-4 pe-5" type="text" name="invoice" placeholder="Masukkan invoice..."
+            <input class="border form-control rounded-pill ps-4 pe-5" type="text" name="invoice" placeholder="Masukkan resi..."
               value="{{ request('invoice') }}" required>
-            <i class="fa fa-search position-absolute" style="right: 3rem; top: 50%; transform: translate(0, -50%);"></i>
+            <i class="fa fa-file-text-o position-absolute" style="right: 3rem; top: 50%; transform: translate(0, -50%);"></i>
           </div>
         </div>
         <div class="col-12 col-lg-2">
@@ -39,7 +39,7 @@
   <div class="ps-section ps-home-about pt-0">
     <div class="container">
       <div class="card card-body border mb-25 p-5 rounded-pill">
-        @if ($order != [] || $whatsapp != '')
+        @if ($order != [] && Request::get('whatsapp') == $whatsapp)
           <div class="ps-form--checkout">
             <h4 class="mb-4 text-uppercase text-center">Data Pelanggan</h4>
             <div class="row text-left">
@@ -103,7 +103,7 @@
                 <span class="badge rounded-pill 
                   {{ $order['status'] === 'Processing' ? 'bg-warning text-dark' : 
                     ($order['status'] === 'Shipped' ? 'bg-info text-white' : 
-                    ($order['status'] === 'Delivered' ? 'bg-success' : 'bg-secondary')) }}">
+                    ($order['status'] === 'Delivered' ? 'bg-success' : 'bg-secondary')) }}" style="font-size: 90%">
                   {{ $order['status'] }}
                 </span>
               </div>
@@ -112,8 +112,10 @@
               <div class="order-7 order-md-0 col-6 col-md-9">{{ $order['paid_date'] ?? '-' }}</div>
             </div>
           </div>
+        @elseif ($order != [] || Request::get('whatsapp') != $whatsapp)
+          <h4 class="text-center mb-0">Pesanan tidak ditemukan untuk resi {{ Request::get('invoice') }}</h4>
         @else
-          <h4 class="text-center mb-0">Masukkan nomor whatsaap dan nomo resi untuk menampilkan status pesanan</h4>  
+          <h4 class="text-center mb-0">Masukkan nomor whatsaap dan resi untuk menampilkan status pesanan</h4>
         @endif
       </div>
     </div>

@@ -98,13 +98,16 @@
 {{-- mobile bottom menu --}}
 <div class="navigation--list">
   <div class="navigation__content">
-    <a class="navigation__item" href="{{ url('/') }}">
+    <a href="{{ url('/') }}" class="navigation__item">
       <i class="fa fa-home"></i>
     </a>
-    <a class="navigation__item ps-toggle--sidebar" href="#navigation-mobile">
+    <a href="#navigation-mobile" class="navigation__item ps-toggle--sidebar">
       <i class="fa fa-bars"></i>
     </a>
-    <a class="navigation__item ps-toggle--sidebar" href="#cart-mobile">
+    <a href="{{ url('order-check') }}" class="navigation__item">
+      <i class="fa fa-file-text"></i>
+    </a>
+    <a href="#cart-mobile" class="navigation__item ps-toggle--sidebar">
       <i class="fa fa-shopping-basket"></i>
     </a>
   </div>

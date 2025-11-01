@@ -87,9 +87,9 @@ class GeneralController extends Controller
         $apiHost = env('API_HOST');
         $token = env('BEARER_TOKEN');
         
-        $invoice = $request->get('invoice');
+        $invoice = $request->get('invoice', '0');
         $order = Http::withToken($token)->get(url("$apiHost/api/orders/$invoice"))->json() ?? [];
-        $whatsapp = $order['whatsapp'] ?? '';
+        $whatsapp = $order['customer_whatsapp'] ?? '';
 
         return view('order-check', [
             'order' => $order,
