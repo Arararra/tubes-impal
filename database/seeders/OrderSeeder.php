@@ -56,6 +56,8 @@ class OrderSeeder extends Seeder
 
             Order::create([
                 'customer_name' => $faker->name(),
+                'customer_city' => $faker->city(),
+                'customer_postcode' => $faker->postcode(),
                 'customer_address' => $faker->address(),
                 'customer_whatsapp' => '62' . $faker->numerify('8##########'),
                 'receipt' => strtoupper($faker->bothify('INV####')),
