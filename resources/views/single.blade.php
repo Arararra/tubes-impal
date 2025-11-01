@@ -25,19 +25,9 @@
 @endsection
 
 @section('content')
-  <div class="ps-hero bg--cover" data-background="{{ asset('themes/img/shop-hero.png') }}">
-    <div class="ps-hero__container">
-      <div class="ps-breadcrumb">
-        <ul class="breadcrumb">
-          <li>
-            <a href="{{ url('/') }}">Home</a>
-          </li>
-          <li>{{ $pageTitle }}</li>
-        </ul>
-      </div>
-      <h1 class="ps-hero__heading">{{ $pageTitle }}</h1>
-    </div>
-  </div>
+  @include('includes.breadcrumb', [
+    'breadcrumb' => [$pageTitle]
+  ])
   
   <div class="ps-section ps-home-about">
     <div class="container">

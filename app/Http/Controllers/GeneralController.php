@@ -15,7 +15,7 @@ class GeneralController extends Controller
         $singles = Http::withToken($token)->get(url("$apiHost/api/singles"))->json();
         $categories = Http::withToken($token)->get(url("$apiHost/api/categories"))->json();
         $products = Http::withToken($token)->get(url("$apiHost/api/products"))->json();
-            $reviews = Http::withToken($token)->get(url("$apiHost/api/reviews"))->json();
+        $reviews = Http::withToken($token)->get(url("$apiHost/api/reviews"))->json();
             
         return view('index', [
             'singles' => $singles,
@@ -80,6 +80,18 @@ class GeneralController extends Controller
             'currentPage' => $page,
             'selectedCategory' => $category,
             'selectedSort' => $sort,
+        ]);
+    }
+
+    public function orderCheck(Request $request) {
+        $apiHost = env('API_HOST');
+        $token = env('BEARER_TOKEN');
+        
+        $invoice = $request->get('invoice');
+        $order = Http::withToken($token)->get(url("$apiHost/api/orders/$invoice"))->json() ?? [];
+
+        return view('order-check', [
+            'order' => $order
         ]);
     }
     

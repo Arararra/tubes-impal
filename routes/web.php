@@ -7,6 +7,7 @@ use App\Http\Controllers\GeneralController;
 
 Route::get('/', [GeneralController::class, 'home'])->name('home');
 Route::get('/catalog', [GeneralController::class, 'catalog'])->name('catalog');
+Route::get('/order-check', [GeneralController::class, 'orderCheck'])->name('order-check');
 Route::get('/checkout', [GeneralController::class, 'checkout'])->name('checkout');
-Route::post('/checkout-payment', [GeneralController::class, 'checkout-payment'])->name('checkout-payment');
+Route::post('/checkout-payment', [GeneralController::class, 'checkoutPayment'])->name('checkout-payment');
 Route::get('/{slug?}', [GeneralController::class, 'single'])->name('single');

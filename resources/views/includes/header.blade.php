@@ -37,6 +37,7 @@
   {{-- desktop shopping cart --}}
   <div class="header__right">
     <div class="header__actions">
+      <a href="{{ url('order-check') }}"><i class="fa fa-file-text"></i></a>
       <div class="ps-cart--mini">
         <a class="ps-cart__toggle" href="javascript:;">
           <i class="fa fa-shopping-basket"></i>
