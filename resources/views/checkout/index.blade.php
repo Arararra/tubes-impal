@@ -8,7 +8,7 @@
   ])
 
   <div class="container">
-    <form action="{{ route('checkout-payment') }}" method="post" class="ps-checkout">
+    <form method="POST" action="{{ route('checkout-payment') }}" class="ps-checkout">
       <div class="ps-checkout__left">
         <div class="ps-form--checkout">
           <h4>Data Pelanggan</h4>
