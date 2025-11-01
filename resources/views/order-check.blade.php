@@ -43,15 +43,23 @@
           <div class="ps-form--checkout">
             <h4 class="mb-4 text-uppercase text-center">Data Pelanggan</h4>
             <div class="row text-left">
-              <div class="col-md-4 mb-3">
+              <div class="col-md-6 mb-3">
                 <label>Nama</label>
                 <div class="border rounded p-3 bg-light">{{ $order['customer_name'] }}</div>
               </div>
-              <div class="col-md-4 mb-3">
+              <div class="col-md-6 mb-3">
                 <label>Nomor Whatsapp</label>
                 <div class="border rounded p-3 bg-light">{{ $order['customer_whatsapp'] }}</div>
               </div>
-              <div class="col-md-4 mb-3">
+              <div class="col-md-6 mb-3">
+                <label>Kota</label>
+                <div class="border rounded p-3 bg-light">{{ $order['customer_city'] }}</div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label>Kode Pos</label>
+                <div class="border rounded p-3 bg-light">{{ $order['customer_postcode'] }}</div>
+              </div>
+              <div class="col-md-12 mb-3">
                 <label>Alamat Lengkap</label>
                 <div class="border rounded p-3 bg-light">{{ $order['customer_address'] }}</div>
               </div>
@@ -109,7 +117,7 @@
               </div>
 
               <div class="order-5 order-md-0 col-6 col-md-3"><strong>Tanggal Pembayaran:</strong></div>
-              <div class="order-7 order-md-0 col-6 col-md-9">{{ $order['paid_date'] ?? '-' }}</div>
+              <div class="order-7 order-md-0 col-6 col-md-9">{{ date('Y-m-d H:i', strtotime($order['paid_date'])) ?? '-' }}</div>
             </div>
           </div>
         @elseif ($order != [] || Request::get('whatsapp') != $whatsapp)
