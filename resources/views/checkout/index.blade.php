@@ -51,7 +51,7 @@
             <div class="order-preview"></div>
             <div class="ps-block__divider"></div>
             <p class="total">
-              Total <strong class="cart-subtotal">Rp. 0</strong>
+              Total <strong class="cart-total">Rp. 0</strong>
             </p>
           </div>
           <div class="ps-block__footer mt-5">

@@ -56,7 +56,7 @@ function setQty(id, value) {
 }
 
 
-function calcSubtotal(cart) {
+function calcTotal(cart) {
   return cart.reduce((sum, item) => sum + item.price * item.qty, 0);
 }
 
@@ -67,7 +67,7 @@ function calcCount(cart) {
 function renderCart() {
   const cart = getCart();
   const itemContainers = document.querySelectorAll('.cart-items');
-  const subtotalElements = document.querySelectorAll('.cart-subtotal');
+  const totalElements = document.querySelectorAll('.cart-total');
   const countElements = document.querySelectorAll('.cart-count');
   const previewContainer = document.querySelectorAll('.order-preview');
 
@@ -103,9 +103,9 @@ function renderCart() {
   itemContainers.forEach(c => c.innerHTML = html);
   previewContainer.forEach(c => c.innerHTML = previewHtml);
 
-  // render subtotal dan count
-  const subtotal = `Rp. ${calcSubtotal(cart).toLocaleString('id-ID')}`;
-  subtotalElements.forEach(s => s.textContent = subtotal);
+  // render total dan count
+  const total = `Rp. ${calcTotal(cart).toLocaleString('id-ID')}`;
+  totalElements.forEach(s => s.textContent = total);
   countElements.forEach(s => s.textContent = calcCount(cart));
 }
 
