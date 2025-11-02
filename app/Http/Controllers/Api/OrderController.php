@@ -17,6 +17,8 @@ class OrderController extends Controller
             return [
                 'id' => $order->id,
                 'customer_name' => $order->customer_name,
+                'customer_city' => $order->customer_city,
+                'customer_postcode' => $order->customer_postcode,
                 'customer_address' => $order->customer_address,
                 'customer_whatsapp' => $order->customer_whatsapp,
                 'receipt' => $order->receipt,
@@ -65,6 +67,8 @@ class OrderController extends Controller
         $response = [
             'id' => $order->id,
             'customer_name' => $order->customer_name,
+            'customer_city' => $order->customer_city,
+            'customer_postcode' => $order->customer_postcode,
             'customer_address' => $order->customer_address,
             'customer_whatsapp' => $order->customer_whatsapp,
             'receipt' => $order->receipt,

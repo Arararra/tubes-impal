@@ -8,7 +8,9 @@ class Order extends Model
 {
     protected $fillable = [
         'customer_name', 
-        'customer_address', 
+        'customer_city',
+        'customer_postcode',
+        'customer_address',
         'customer_whatsapp',
         'receipt', 
         'shipping_receipt', 
