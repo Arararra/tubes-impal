@@ -13,30 +13,30 @@
         <div class="ps-form--checkout">
           <h4>Data Pelanggan</h4>
           <div class="form-group">
-            <label>Nama</label>
-            <input class="form-control border rounded-pill" type="text">
+            <label>Nama <i class="text-danger">*</i></label>
+            <input name="customer_name" type="text" required class="form-control border rounded-pill">
           </div>
           <div class="form-group">
-            <label>Nomor Whatsapp</label>
-            <input class="form-control border rounded-pill" type="text">
+            <label>Nomor Whatsapp <i class="text-danger">*</i></label>
+            <input name="customer_whatsapp" type="text" required class="form-control border rounded-pill">
           </div>
           <div class="row">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 ">
               <div class="form-group">
-                <label>Kota/Kecamatan</label>
-                <input class="form-control border rounded-pill" type="text">
+                <label>Kota/Kecamatan <i class="text-danger">*</i></label>
+                <input name="customer_city" type="text" required class="form-control border rounded-pill">
               </div>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 ">
               <div class="form-group">
-                <label>Kode Pos</label>
-                <input class="form-control border rounded-pill" type="text">
+                <label>Kode Pos <i class="text-danger">*</i></label>
+                <input name="customer_postcode" type="text" required class="form-control border rounded-pill">
               </div>
             </div>
           </div>
           <div class="form-group">
-            <label>Alamat Lengkap</label>
-            <textarea class="form-control border rounded-pill" rows="4"></textarea>
+            <label>Alamat Lengkap <i class="text-danger">*</i></label>
+            <textarea name="customer_address" rows="4" required class="form-control border rounded-pill"></textarea>
           </div>
         </div>
       </div>
