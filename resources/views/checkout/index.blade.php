@@ -8,7 +8,8 @@
   ])
 
   <div class="container">
-    <form method="POST" action="{{ route('checkout-payment') }}" class="ps-checkout">
+    <form method="POST" action="{{ route('checkout.payment') }}" class="ps-checkout">
+      @csrf
       <div class="ps-checkout__left">
         <div class="ps-form--checkout">
           <h4>Data Pelanggan</h4>
