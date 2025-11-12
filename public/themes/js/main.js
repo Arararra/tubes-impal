@@ -925,7 +925,7 @@
         modalInit();
         searchInit();
         countDown();
-        mainSlider();
+        // mainSlider();
         parallax();
         stickySidebar();
         accordion();

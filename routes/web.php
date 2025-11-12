@@ -1,20 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
-Route::get('/', function () {
-	$apiHost = env('API_HOST');
-  $token = env('BEARER_TOKEN');
-	
-  $singles = Http::withToken($token)->get(url("$apiHost/api/singles"))->json();
-  $categories = Http::withToken($token)->get(url("$apiHost/api/categories"))->json();
-  $products = Http::withToken($token)->get(url("$apiHost/api/products"))->json();
-	$reviews = Http::withToken($token)->get(url("$apiHost/api/reviews"))->json();
-	
-  return view('index', [
-		'singles' => $singles,
-		'categories' => $categories,
-		'products' => $products,
-		'reviews' => $reviews,
-	]);
-});
+use App\Http\Controllers\GeneralController;
+
+Route::get('/', [GeneralController::class, 'home'])->name('home');
+Route::get('/catalog', [GeneralController::class, 'catalog'])->name('catalog');
+Route::get('/order-check', [GeneralController::class, 'orderCheck'])->name('order-check');
+Route::get('/checkout', [GeneralController::class, 'checkout'])->name('checkout');
+Route::post('/checkout-payment', [GeneralController::class, 'checkoutPayment'])->name('checkout-payment');
+Route::get('/{slug?}', [GeneralController::class, 'single'])->name('single');

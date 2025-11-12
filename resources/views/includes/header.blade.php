@@ -1,7 +1,11 @@
+{{-- desktop header --}}
 <header class="header header--default" data-sticky="true">
+  {{-- open hour --}}
   <div class="header__left">
-    <p><i class="fa fa-clock-o"></i> 09:00 - 21:00</p>
+    <p><i class="fa fa-clock-o"></i> 07:00 am - 09:00 pm</p>
   </div>
+
+  {{-- desktop top nav --}}
   <div class="header__center">
     <nav class="header__navigation left">
       <ul class="menu">
@@ -9,7 +13,7 @@
           <a href="{{ url('/') }}">Home</a>
         </li>
         <li>
-          <a href="{{ url('katalog') }}">Katalog</a>
+          <a href="{{ url('catalog') }}">Katalog</a>
         </li>
       </ul>
     </nav>
@@ -24,41 +28,87 @@
           <a href="{{ url('about') }}">About</a>
         </li>
         <li>
-          <a href="{{ url('faq') }}">faq</a>
+          <a href="{{ url('faq') }}">FAQ</a>
         </li>
       </ul>
     </nav>
   </div>
   
+  {{-- desktop shopping cart --}}
   <div class="header__right">
     <div class="header__actions">
+      <a href="{{ url('order-check') }}"><i class="fa fa-file-text"></i></a>
       <div class="ps-cart--mini">
-        <a class="ps-cart__toggle" href="#">
+        <a class="ps-cart__toggle" href="javascript:;">
           <i class="fa fa-shopping-basket"></i>
-          <span><i>1</i></span>
+          <span><i class="cart-count">0</i></span>
         </a>
-        
-        <div class="ps-cart__content">
-          <div class="ps-cart__items">
-            <div class="ps-product--mini-cart">
-              <div class="ps-product__thumbnail">
-                <a href="#"><img src="img/product/12.png" alt=""></a>
-              </div>
-              <div class="ps-product__content">
-                <span class="ps-btn--close"></span>
-                <a class="ps-product__title" href="product-default.html">Jean Woman Summer</a>
-                <p><strong>Quantity: 1</strong></p><small>$12.00</small>
-              </div>
-            </div>
-          </div>
-          <div class="ps-cart__footer">
-            <h3>Sub Total:<strong>$48.00</strong></h3>
-            <figure>
-              <a class="ps-btn ps-btn--dark" href="checkout.html">Checkout</a>
-            </figure>
-          </div>
-        </div>
+        @include('includes.cart-content')
       </div>
     </div>
   </div>
 </header>
+
+{{-- mobile header --}}
+<header class="header header--mobile" data-sticky="false">
+  <div class="header__content">
+    <div class="header__center">
+      <a class="ps-logo" href="{{ url('/') }}">
+        <img src="{{ asset('themes/img/logo.png') }}" alt="">
+      </a>
+    </div>
+  </div>
+</header>
+
+{{-- mobile shopping cart --}}
+<div class="ps-panel--sidebar" id="cart-mobile">
+  <div class="ps-panel__header">
+    <h3>Shopping Cart</h3>
+  </div>
+  <div class="navigation__content">
+    <div class="ps-cart--mobile">
+      @include('includes.cart-content')
+    </div>
+  </div>
+</div>
+
+{{-- mobile side nav --}}
+<div class="ps-panel--sidebar" id="navigation-mobile">
+  <div class="ps-panel__header">
+    <h3>Menu</h3>
+  </div>
+  <div class="ps-panel__content">
+    <ul class="menu--mobile">
+      <li class="current-menu-item">
+        <a href="{{ url('/') }}">Home</a>
+      </li>
+      <li>
+        <a href="{{ url('catalog') }}">Katalog</a>
+      </li>
+      <li class="current-menu-item">
+        <a href="{{ url('about') }}">About</a>
+      </li>
+      <li>
+        <a href="{{ url('faq') }}">FAQ</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+{{-- mobile bottom menu --}}
+<div class="navigation--list">
+  <div class="navigation__content">
+    <a href="{{ url('/') }}" class="navigation__item">
+      <i class="fa fa-home"></i>
+    </a>
+    <a href="#navigation-mobile" class="navigation__item ps-toggle--sidebar">
+      <i class="fa fa-bars"></i>
+    </a>
+    <a href="{{ url('order-check') }}" class="navigation__item">
+      <i class="fa fa-file-text"></i>
+    </a>
+    <a href="#cart-mobile" class="navigation__item ps-toggle--sidebar">
+      <i class="fa fa-shopping-basket"></i>
+    </a>
+  </div>
+</div>
