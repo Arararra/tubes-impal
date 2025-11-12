@@ -58,6 +58,3 @@ Cek `app\Http\Controllers\Api\SingleController.php` dan `route/api.php` untuk re
 `php artisan make:controller Api/{Nama}Controller --api`
 2. Tambahkan route di routes/api.php, pastikan endpoint dan model sudah benar
 3. Isi controller sesuai kebutuhan
-
-## Generate API bearer token
-Access `POST /api/login` dengan body form-data `email` dan `password`, simpan bearer token ke dalam `.env` agar tidak perlu generate lagi

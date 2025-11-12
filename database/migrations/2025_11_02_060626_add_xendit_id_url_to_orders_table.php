@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->string('xendit_id')->after('paid_date');
-            $table->string('xendit_url')->after('paid_date');
+            $table->string('xendit_id')->nullable()->after('paid_date');
+            $table->string('xendit_url')->nullable()->after('paid_date');
         });
     }
 
