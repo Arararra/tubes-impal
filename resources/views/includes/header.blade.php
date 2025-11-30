@@ -13,7 +13,7 @@
           <a href="{{ url('/') }}">Home</a>
         </li>
         <li>
-          <a href="{{ url('catalog') }}">Katalog</a>
+          <a href="{{ url('products') }}">Katalog</a>
         </li>
       </ul>
     </nav>
@@ -83,7 +83,7 @@
         <a href="{{ url('/') }}">Home</a>
       </li>
       <li>
-        <a href="{{ url('catalog') }}">Katalog</a>
+        <a href="{{ url('products') }}">Katalog</a>
       </li>
       <li class="current-menu-item">
         <a href="{{ url('about') }}">About</a>

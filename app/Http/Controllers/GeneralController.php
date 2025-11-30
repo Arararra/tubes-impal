@@ -25,7 +25,7 @@ class GeneralController extends Controller
         ]);
     }
 
-    public function catalog(Request $request)
+    public function products(Request $request)
     {
         $apiHost = env('API_HOST');
         $token = env('BEARER_TOKEN');
@@ -72,7 +72,7 @@ class GeneralController extends Controller
 
         $products = array_slice($products, ($page - 1) * $perPage, $perPage);
         
-        return view('catalog.index', [
+        return view('products.index', [
             'categories' => $categories,
             'products' => $products,
             'total' => $total,

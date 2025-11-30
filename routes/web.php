@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\GeneralController;
 
 Route::get('/', [GeneralController::class, 'home'])->name('home');
-Route::get('/catalog', [GeneralController::class, 'catalog'])->name('catalog');
+Route::get('/products', [GeneralController::class, 'products'])->name('products');
 Route::get('/order-check', [GeneralController::class, 'orderCheck'])->name('order-check');
 Route::get('/checkout', [GeneralController::class, 'checkout'])->name('checkout');
 Route::post('/checkout-payment', [GeneralController::class, 'checkoutPayment'])->name('checkout-payment');

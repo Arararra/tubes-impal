@@ -2,7 +2,7 @@
   <div class="ps-product border rounded overflow-hidden" style="background: #fff4e9;">
     <div class="ps-product__thumbnail">
       <img src="{{ env('API_HOST')."/storage/".$item['image'] }}" alt="" class="h-100 object-fit-cover" />
-      <a class="ps-product__overlay" href="{{ url("catalog/${item['id']}") }}"></a>
+      <a class="ps-product__overlay" href="{{ url("products/${item['id']}") }}"></a>
     </div>
     <div class="ps-product__content p-4">
       <div class="ps-product__desc h-100 d-flex flex-column align-items-center justify-content-center">
