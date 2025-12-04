@@ -80,3 +80,9 @@
 .ps-cart--mobile .ps-cart__footer h3 {
   text-transform: none;
 }
+.ps-shopping p {
+  line-height: normal;
+}
+.ps-product--detail .ps-product__specification p {
+  margin-bottom: 1rem;
+}

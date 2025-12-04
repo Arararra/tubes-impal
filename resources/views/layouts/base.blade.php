@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{{ asset('themes/plugins/lightGallery-master/dist/css/lightgallery.min.css') }}">
     <link rel="stylesheet" href="{{ asset('themes/plugins/jquery-ui/jquery-ui.min.css') }}">
     <link rel="stylesheet" href="{{ asset('themes/plugins/select2/dist/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('themes/plugins/jquery-bar-rating/dist/themes/fontawesome-stars.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="{{ asset('themes/plugins/chikery-icon/style.css') }}">
     <link rel="stylesheet" href="{{ asset('themes/css/style.css') }}">
@@ -39,6 +40,7 @@
     <script src="{{ asset('themes/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('themes/plugins/jquery.slimscroll.min.js') }}"></script>
     <script src="{{ asset('themes/plugins/select2/dist/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('themes/plugins/jquery-bar-rating/dist/jquery.barrating.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="{{ asset('themes/js/main.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>

@@ -91,10 +91,19 @@ class GeneralController extends Controller
         $reviews = Http::withToken($token)->get(url("$apiHost/api/reviews"))->json();
 
         if (!$product) abort(404);
-            
+
+        $filteredReviews = array_filter($reviews, function ($review) use ($id) {
+            return $review['product_id'] == $id;
+        });
+
+        $productRating = count($filteredReviews) > 0 
+            ? array_sum(array_column($filteredReviews, 'rating')) / count($filteredReviews) 
+            : 0;
+
         return view('products._detail', [
             'product' => $product,
-            'reviews' => $reviews,
+            'reviews' => $filteredReviews,
+            'productRating' => $productRating,
         ]);
     }
 
