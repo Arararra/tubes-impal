@@ -19,7 +19,7 @@
         <div class="ps-banner__content">
           <h3>Amba Bakery</h3>
           <p>100% Natural, FRESH baked goods</p>
-          <a href="{{ url('products') }}" class="ps-btn">Jelajah katalog</a>
+          <a href="{{ url('products') }}" class="ps-btn">Jelajah Produk</a>
           <br>
           <a href="{{ url('/admin') }}" class="ps-btn mt-3">ADMIN PAGE</a>
         </div>

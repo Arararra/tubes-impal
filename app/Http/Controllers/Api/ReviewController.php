@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Review;
+use App\Models\Order;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -69,6 +70,48 @@ class ReviewController extends Controller
     {
         $review->delete();
         return response()->json(null, 204);
+    }
+
+    /**
+     * Add or update a review based on order_receipt.
+     */
+    public function addOrUpdateReview(Request $request)
+    {
+        $validatedData = $request->validate([
+            'order_receipt' => 'required|string',
+            'customer_whatsapp' => 'required|digits:5',
+            'title' => 'required|string',
+            'body' => 'required|string',
+            'rating' => 'required|integer|min:1|max:5',
+        ]);
+
+        $order = Order::where('receipt', $validatedData['order_receipt'])
+            ->where('customer_whatsapp', 'like', "%{$validatedData['customer_whatsapp']}")
+            ->first();
+
+        if (!$order) {
+            return response()->json(['error' => 'Invalid order receipt or customer WhatsApp'], 400);
+        }
+
+        $review = Review::where('order_id', $order->id)->first();
+
+        if ($review) {
+            $review->update([
+                'title' => $validatedData['title'],
+                'body' => $validatedData['body'],
+                'rating' => $validatedData['rating'],
+            ]);
+        } else {
+            $review = Review::create([
+                'order_id' => $order->id,
+                'title' => $validatedData['title'],
+                'body' => $validatedData['body'],
+                'rating' => $validatedData['rating'],
+                'product_id' => $order->product_id,
+            ]);
+        }
+
+        return $this->formatResponse($review);
     }
 
     private function formatResponse($review)

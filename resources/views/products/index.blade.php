@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
-@section('title', 'Katalog')
+@section('title', 'Produk')
 
 @php
   $start = ($currentPage - 1) * $perPage + 1;
@@ -10,7 +10,7 @@
 
 @section('content')
   @include('includes.breadcrumb', [
-    'breadcrumb' => ['Katalog']
+    'breadcrumb' => ['Produk']
   ])
 
   <div class="ps-page--shop">

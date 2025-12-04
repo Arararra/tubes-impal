@@ -83,6 +83,21 @@ class GeneralController extends Controller
         ]);
     }
 
+    public function product($id) {
+        $apiHost = env('API_HOST');
+        $token = env('BEARER_TOKEN');
+            
+        $product = Http::withToken($token)->get(url("$apiHost/api/products/$id"))->json();
+        $reviews = Http::withToken($token)->get(url("$apiHost/api/reviews"))->json();
+
+        if (!$product) abort(404);
+            
+        return view('products._detail', [
+            'product' => $product,
+            'reviews' => $reviews,
+        ]);
+    }
+
     public function orderCheck(Request $request) {
         $apiHost = env('API_HOST');
         $token = env('BEARER_TOKEN');
