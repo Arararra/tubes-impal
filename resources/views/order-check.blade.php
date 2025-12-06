@@ -14,19 +14,19 @@
     <div class="container">
       <form method="GET" action="{{ url()->current() }}" class="row align-items-center mb-3">
         <div class="col-12 col-md-6 col-lg-5">
-          <label for="whatsapp" class="h3 mb-10">Nomor Whatsapp <i class="text-danger">*</i></label>
-          <div class="form-group position-relative">
-            <input class="border form-control rounded-pill ps-4 pe-5" type="text" name="whatsapp" placeholder="Masukkan nomor whatsapp..."
-              value="{{ request('whatsapp') }}" required>
-            <i class="fa fa-whatsapp position-absolute" style="right: 3rem; top: 50%; transform: translate(0, -50%);"></i>
-          </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-5">
           <label for="invoice" class="h3 mb-10">Invoice <i class="text-danger">*</i></label>
           <div class="form-group position-relative">
             <input class="border form-control rounded-pill ps-4 pe-5" type="text" name="invoice" placeholder="Masukkan resi..."
               value="{{ request('invoice') }}" required>
             <i class="fa fa-file-text-o position-absolute" style="right: 3rem; top: 50%; transform: translate(0, -50%);"></i>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-5">
+          <label for="whatsapp" class="h3 mb-10">5 digit terakhir Nomor Whatsapp <i class="text-danger">*</i></label>
+          <div class="form-group position-relative">
+            <input class="border form-control rounded-pill ps-4 pe-5" type="text" name="whatsapp" placeholder="Masukkan nomor whatsapp..."
+              value="{{ request('whatsapp') }}" required>
+            <i class="fa fa-whatsapp position-absolute" style="right: 3rem; top: 50%; transform: translate(0, -50%);"></i>
           </div>
         </div>
         <div class="col-12 col-lg-2">
