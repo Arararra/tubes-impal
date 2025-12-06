@@ -113,7 +113,8 @@ class GeneralController extends Controller
         
         $invoice = $request->get('invoice', '0');
         $order = Http::withToken($token)->get(url("$apiHost/api/orders/$invoice"))->json() ?? [];
-        $whatsapp = substr($order['customer_whatsapp'], -5) ?? '';
+        $whatsapp = $order['customer_whatsapp'] ?? '';
+        $whatsapp = substr($whatsapp, -5);
 
         return view('order-check', [
             'order' => $order,

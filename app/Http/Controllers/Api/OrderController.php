@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Order;
+use App\Models\Product;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -137,6 +138,15 @@ class OrderController extends Controller
 
         $cart = $validated['cart'];
 
+        foreach ($cart as $item) {
+            $product = Product::find($item['id']);
+            if (!$product || $item['qty'] > $product->stock) {
+                return response()->json([
+                    'message' => 'Sepertinya stok produk tidak mencukupi untuk pesanan Anda!',
+                ], 400);
+            }
+        }
+
         $total = array_reduce($cart, function ($sum, $item) {
             return $sum + ($item['price'] * $item['qty']);
         }, 0);
@@ -161,6 +171,11 @@ class OrderController extends Controller
                 'quantity' => $item['qty'],
                 'price' => $item['price'],
             ]);
+
+            $product = Product::find($item['id']);
+            if ($product) {
+                $product->decrement('stock', $item['qty']);
+            }
         }
 
         try {

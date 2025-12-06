@@ -77,7 +77,7 @@
 
           const cart = getCart();
           if (cart.length === 0) {
-            notify(`Cart is empty. Please add items to the cart before checking out.`, 'error');
+            notify(`Cart masih kosong!`, 'error');
             submitButton.disabled = false;
             submitButton.innerHTML = 'Place Order';
             return;
@@ -98,8 +98,8 @@
             });
 
             if (!response.ok) {
-              const err = await response.json().catch(() => ({ message: "Checkout failed" }));
-              alert(err.message);
+              const err = await response.json().catch();
+              notify(err.message, 'error');
               return;
             }
 
@@ -118,10 +118,9 @@
             link.click();
 
             clearCart();
-            notify(`Order placed successfully!`, 'success');
+            notify(`Pesanan berhasil dibuat`, 'success');
           } catch (error) {
-            console.error('Error during checkout:', error);
-            alert('An error occurred. Please try again later.');
+            notify(`Terjadi masalah dalam pemesanan!`, 'error');
           } finally {
             submitButton.disabled = false;
             submitButton.innerHTML = 'Place Order';
