@@ -105,14 +105,22 @@ class OrderResource extends Resource
                                             ->label('Customer Name')
                                             ->maxLength(255)
                                             ->disabled(),
-                                        Forms\Components\Textarea::make('customer_address')
-                                            ->label('Address')
-                                            ->rows(3)
-                                            ->disabled(),
                                         Forms\Components\TextInput::make('customer_whatsapp')
                                             ->label('WhatsApp Number')
                                             ->tel()
                                             ->prefix('+62')
+                                            ->disabled(),
+                                        Forms\Components\TextInput::make('customer_city')
+                                            ->label('Customer City')
+                                            ->maxLength(255)
+                                            ->disabled(),
+                                        Forms\Components\TextInput::make('customer_postcode')
+                                            ->label('Customer Postcode')
+                                            ->maxLength(255)
+                                            ->disabled(),
+                                        Forms\Components\Textarea::make('customer_address')
+                                            ->label('Address')
+                                            ->rows(3)
                                             ->disabled(),
                                     ]),
                             ]),

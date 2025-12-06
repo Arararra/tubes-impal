@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Models\Order;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class OrderController extends Controller
 {
@@ -114,5 +116,68 @@ class OrderController extends Controller
     {
         $order->delete();
         return response()->json(null, 204);
+    }
+
+    /**
+     * Handle the checkout process.
+     */
+    public function checkout(Request $request)
+    {
+        // Validate customer data
+        $validated = $request->validate([
+            'customer_name' => 'required|string|max:255',
+            'customer_whatsapp' => 'required|string|max:15',
+            'customer_city' => 'required|string|max:255',
+            'customer_postcode' => 'required|string|max:10',
+            'customer_address' => 'required|string',
+        ]);
+
+        // Retrieve cart data from cookies
+        $cart = json_decode(Cookie::get('cart', '[]'), true);
+
+        if (empty($cart)) {
+            return response()->json(['message' => 'Cart is empty'], 400);
+        }
+
+        // Calculate total
+        $total = array_reduce($cart, function ($sum, $item) {
+            return $sum + ($item['price'] * $item['qty']);
+        }, 0);
+
+        // Generate unique receipt number
+        $receipt = 'INV' . str_pad(rand(0, 9999), 4, '0', STR_PAD_LEFT);
+
+        // Create order
+        $order = Order::create([
+            'customer_name' => $validated['customer_name'],
+            'customer_whatsapp' => $validated['customer_whatsapp'],
+            'customer_city' => $validated['customer_city'],
+            'customer_postcode' => $validated['customer_postcode'],
+            'customer_address' => $validated['customer_address'],
+            'receipt' => $receipt,
+            'status' => 'paid',
+            'paid_date' => now(),
+            'total' => $total,
+        ]);
+
+        // Save products to order
+        foreach ($cart as $item) {
+            $order->orderProducts()->create([
+                'product_id' => $item['id'],
+                'quantity' => $item['qty'],
+                'price' => $item['price'],
+            ]);
+        }
+
+        // Clear cart cookies
+        Cookie::queue(Cookie::forget('cart'));
+
+        // Generate PDF receipt
+        $pdf = PDF::loadView('receipt', [
+            'order' => $order,
+            'products' => $cart,
+        ]);
+
+        return $pdf->download("receipt_{$receipt}.pdf");
     }
 }

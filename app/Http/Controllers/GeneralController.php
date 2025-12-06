@@ -124,9 +124,6 @@ class GeneralController extends Controller
     public function checkout() {
         return view('checkout.index', []);
     }
-    public function checkoutPayment() {
-        return view('checkout.index', []);
-    }
 
     public function single($slug) {
         $apiHost = env('API_HOST');

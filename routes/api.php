@@ -21,3 +21,5 @@ Route::middleware('auth.bearer')->group(function () {
     Route::apiResource('/orders', OrderController::class);
     Route::apiResource('/reviews', ReviewController::class);
 });
+
+Route::post('/orders/checkout', [OrderController::class, 'checkout']);
