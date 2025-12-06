@@ -8,8 +8,7 @@
   ])
 
   <div class="container">
-    <form method="POST" action="api/orders/checkout" class="ps-checkout">
-      @csrf
+    <form method="POST" action="#" class="ps-checkout" id="checkout-form">
       <div class="ps-checkout__left">
         <div class="ps-form--checkout">
           <h4>Data Pelanggan</h4>
@@ -62,4 +61,72 @@
       </div>
     </form>
   </div>
+@endsection
+
+@section('customScripts')
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const checkoutForm = document.getElementById('checkout-form');
+      const submitButton = checkoutForm.querySelector('button[type="submit"]');
+
+      checkoutForm.addEventListener('submit', async function (event) {
+          event.preventDefault();
+
+          submitButton.disabled = true;
+          submitButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...';
+
+          const cart = getCart();
+          if (cart.length === 0) {
+            notify(`Cart is empty. Please add items to the cart before checking out.`, 'error');
+            submitButton.disabled = false;
+            submitButton.innerHTML = 'Place Order';
+            return;
+          }
+
+          const formData = new FormData(checkoutForm);
+          const data = Object.fromEntries(formData.entries());
+          data.cart = cart;
+
+          try {
+            const response = await fetch('{{ env('API_HOST')."/api/orders/checkout" }}', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/pdf',
+              },
+              body: JSON.stringify(data),
+            });
+
+            if (!response.ok) {
+              const err = await response.json().catch(() => ({ message: "Checkout failed" }));
+              alert(err.message);
+              return;
+            }
+
+            const blob = await response.blob();
+            const disposition = response.headers.get('Content-Disposition');
+            let filename = "receipt.pdf";
+
+            if (disposition && disposition.includes("filename=")) {
+              filename = disposition.split("filename=")[1];
+            }
+
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = filename;
+            link.click();
+
+            clearCart();
+            notify(`Order placed successfully!`, 'success');
+          } catch (error) {
+            console.error('Error during checkout:', error);
+            alert('An error occurred. Please try again later.');
+          } finally {
+            submitButton.disabled = false;
+            submitButton.innerHTML = 'Place Order';
+          }
+      });
+    });
+  </script>
 @endsection

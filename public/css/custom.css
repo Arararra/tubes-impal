@@ -55,12 +55,6 @@
   margin-top: -6rem;
   padding-top: 0;
 }
-@media (min-width: 1200px) {
-  .ps-hero__container {
-    margin-top: 6rem;
-    padding-top: 0; 
-  } 
-}
 .ps-home-about {
   padding: 65px 0 60px;
 }
@@ -85,4 +79,15 @@
 }
 .ps-product--detail .ps-product__specification p {
   margin-bottom: 1rem;
+}
+@media (min-width: 1200px) {
+  .ps-hero__container {
+    margin-top: 6rem;
+    padding-top: 0; 
+  } 
+}
+@media (max-width: 991px) {
+  .ps-checkout .ps-checkout__right {
+    max-width: 100%;
+  }
 }

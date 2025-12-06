@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Order;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cookie;
-use Barryvdh\DomPDF\Facade as PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class OrderController extends Controller
 {
@@ -123,31 +122,27 @@ class OrderController extends Controller
      */
     public function checkout(Request $request)
     {
-        // Validate customer data
         $validated = $request->validate([
             'customer_name' => 'required|string|max:255',
             'customer_whatsapp' => 'required|string|max:15',
             'customer_city' => 'required|string|max:255',
             'customer_postcode' => 'required|string|max:10',
             'customer_address' => 'required|string',
+            'cart' => 'required|array',
+            'cart.*.id' => 'required|integer',
+            'cart.*.name' => 'required|string|max:255',
+            'cart.*.qty' => 'required|integer|min:1',
+            'cart.*.price' => 'required|numeric|min:0',
         ]);
 
-        // Retrieve cart data from cookies
-        $cart = json_decode(Cookie::get('cart', '[]'), true);
+        $cart = $validated['cart'];
 
-        if (empty($cart)) {
-            return response()->json(['message' => 'Cart is empty'], 400);
-        }
-
-        // Calculate total
         $total = array_reduce($cart, function ($sum, $item) {
             return $sum + ($item['price'] * $item['qty']);
         }, 0);
 
-        // Generate unique receipt number
         $receipt = 'INV' . str_pad(rand(0, 9999), 4, '0', STR_PAD_LEFT);
 
-        // Create order
         $order = Order::create([
             'customer_name' => $validated['customer_name'],
             'customer_whatsapp' => $validated['customer_whatsapp'],
@@ -160,7 +155,6 @@ class OrderController extends Controller
             'total' => $total,
         ]);
 
-        // Save products to order
         foreach ($cart as $item) {
             $order->orderProducts()->create([
                 'product_id' => $item['id'],
@@ -169,15 +163,23 @@ class OrderController extends Controller
             ]);
         }
 
-        // Clear cart cookies
-        Cookie::queue(Cookie::forget('cart'));
+        try {
+            $pdf = PDF::loadView('receipt', [
+                'order' => $order,
+                'products' => $cart,
+            ]);
 
-        // Generate PDF receipt
-        $pdf = PDF::loadView('receipt', [
-            'order' => $order,
-            'products' => $cart,
-        ]);
-
-        return $pdf->download("receipt_{$receipt}.pdf");
+            return response()->streamDownload(function () use ($pdf) {
+                echo $pdf->output();
+            }, "receipt_{$receipt}.pdf", [
+                "Content-Type" => "application/pdf",
+                "Access-Control-Expose-Headers" => "Content-Disposition",
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('PDF Generation Error: ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Failed to generate receipt PDF.'
+            ], 500);
+        }
     }
 }
