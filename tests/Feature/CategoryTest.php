@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\User;
 use App\Models\Category;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -23,16 +22,6 @@ class CategoryTest extends TestCase
             'Authorization' => 'Bearer ' . env('BEARER_TOKEN'),
             'Accept' => 'application/json',
         ];
-    }
-
-    /**
-     * A basic feature test example.
-     */
-    public function test_example(): void
-    {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
     }
 
     /** @test */
