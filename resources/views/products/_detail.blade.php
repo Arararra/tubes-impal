@@ -27,18 +27,9 @@
         <div class="ps-product--detail">
           <div class="ps-product__header">
             <div class="ps-product__thumbnail">
-              <figure>
-                <div class="ps-product__gallery">
-                  <div class="item">
-                    <img src="{{ env('API_HOST')."/storage/".$product['image'] }}" alt="Foto produk">
-                  </div>
-                </div>
+              <figure class="d-flex justify-content-center justify-content-lg-end mb-0">
+                <img src="{{ env('API_HOST')."/storage/".$product['image'] }}" height="340" alt="Foto produk">
               </figure>
-              <div class="ps-product__variants" data-item="5" data-md="4" data-sm="4" data-arrow="false">
-                <div class="item"><img src="img/product/25.png" alt=""></div>
-                <div class="item"><img src="img/product/26.png" alt=""></div>
-                <div class="item"><img src="img/product/37.png" alt=""></div>
-              </div>
             </div>
             <div class="ps-product__info">
               <h1>{{ $product['title'] }}</h1>
@@ -83,17 +74,7 @@
           </div>
 
           <div class="ps-product__content">
-            @if (session('success'))
-              <div class="alert alert-success">
-                {{ session('success') }}
-              </div>
-            @endif
-            @if (session('error'))
-              <div class="alert alert-danger">
-                {{ session('error') }}
-              </div>
-            @endif
-            <form method="POST" action="{{ env("API_HOST")."/api/reviews/addOrUpdate" }}" target="_blank" class="ps-form--review pt-0">
+            <form method="POST" action="{{ env("API_HOST")."/api/reviews/addOrUpdate" }}" class="ps-form--review pt-0">
               @csrf
               <input type="hidden" name="product_id" value="{{ $product['id'] }}">
               <input type="hidden" name="redirect_url" value="{{ url()->current() }}">
@@ -149,33 +130,47 @@
 
 @section('customScripts')
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const quantityInput = document.querySelector('.ps-product__shopping .form-control');
-      const incrementButton = document.querySelector('.ps-product__shopping .up');
-      const decrementButton = document.querySelector('.ps-product__shopping .down');
-      const addToCartButton = document.querySelector('.ps-product__shopping .ps-btn');
+    const quantityInput = document.querySelector('.ps-product__shopping .form-control');
+    const incrementButton = document.querySelector('.ps-product__shopping .up');
+    const decrementButton = document.querySelector('.ps-product__shopping .down');
+    const addToCartButton = document.querySelector('.ps-product__shopping .ps-btn');
 
-      incrementButton.addEventListener('click', () => {
-        quantityInput.value = parseInt(quantityInput.value || 1) + 1;
-      });
-
-      decrementButton.addEventListener('click', () => {
-        const currentValue = parseInt(quantityInput.value || 1);
-        quantityInput.value = currentValue > 1 ? currentValue - 1 : 1;
-      });
-
-      addToCartButton.addEventListener('click', () => {
-        const product = {
-          id: {{ $product['id'] }},
-          name: '{{ $product['title'] }}',
-          image: '{{ env('API_HOST').'/storage/'.$product['image'] }}',
-          price: {{ $product['price'] }},
-        };
-        const quantity = parseInt(quantityInput.value || 1);
-        for (let i = 0; i < quantity; i++) {
-          addToCart(product);
-        }
-      });
+    incrementButton.addEventListener('click', () => {
+      quantityInput.value = parseInt(quantityInput.value || 1) + 1;
     });
+
+    decrementButton.addEventListener('click', () => {
+      const currentValue = parseInt(quantityInput.value || 1);
+      quantityInput.value = currentValue > 1 ? currentValue - 1 : 1;
+    });
+
+    addToCartButton.addEventListener('click', () => {
+      const product = {
+        id: {{ $product['id'] }},
+        name: '{{ $product['title'] }}',
+        image: '{{ env('API_HOST').'/storage/'.$product['image'] }}',
+        price: {{ $product['price'] }},
+      };
+      const quantity = parseInt(quantityInput.value || 1);
+      for (let i = 0; i < quantity; i++) {
+        addToCart(product);
+      }
+    });
+
+    if (window.location.search.includes('success=')) {
+      const urlParams = new URLSearchParams(window.location.search);
+      const successMessage = urlParams.get('success');
+      notify(decodeURIComponent(successMessage), 'success');
+      urlParams.delete('success');
+      window.history.replaceState({}, document.title, window.location.pathname + (urlParams.toString() ? '?' + urlParams.toString() : ''));
+    }
+
+    if (window.location.search.includes('error=')) {
+      const urlParams = new URLSearchParams(window.location.search);
+      const errorMessage = urlParams.get('error');
+      notify(decodeURIComponent(errorMessage), 'error', true);
+      urlParams.delete('error');
+      window.history.replaceState({}, document.title, window.location.pathname + (urlParams.toString() ? '?' + urlParams.toString() : ''));
+    }
   </script>
 @endsection

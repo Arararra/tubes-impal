@@ -127,10 +127,10 @@ document.querySelectorAll('.cart-clear').forEach(btn => {
 });
 renderCart();
 
-function notify(message, type = 'success') {
+function notify(message, type = 'success', persist = false) {
   Toastify({
     text: message,
-    duration: 3000,
+    duration: persist ? -1 : 3000,
     gravity: 'top',
     position: 'right',
     backgroundColor: type == 'success' ? '#4CAF50' : '#f44336',

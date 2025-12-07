@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ReviewController extends Controller
 {
@@ -80,7 +81,7 @@ class ReviewController extends Controller
      */
     public function addOrUpdate(Request $request)
     {
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'order_receipt' => 'required|string',
             'customer_whatsapp' => 'required|digits:5',
             'body' => 'required|string',
@@ -88,19 +89,24 @@ class ReviewController extends Controller
             'product_id' => 'required|integer',
             'redirect_url' => 'nullable|string'
         ]);
+        $redirect = $request->input('redirect_url', url()->previous());
+        if ($validator->fails()) {
+            return redirect($redirect . '?error=' . urlencode($validator->errors()->first()));
+        }
+        $validated = $validator->validated();
         
         $order = Order::where('receipt', $validated['order_receipt'])
             ->where('customer_whatsapp', 'like', "%{$validated['customer_whatsapp']}")
             ->first();
         if (!$order) {
-            return redirect($redirect)->with('error', 'Invoice atau nomor WhatsApp salah.');
+            return redirect($redirect . '?error=' . urlencode('Invoice atau nomor WhatsApp salah.'));
         }
 
         $orderProducts = OrderProduct::where('order_id', $order->id)
             ->where('product_id', $validated['product_id'])
             ->first();
         if (!$orderProducts) {
-            return redirect($redirect)->with('error', 'Order tidak sesuai dengan produk yang direview.');
+            return redirect($redirect . '?error=' . urlencode('Order tidak sesuai dengan produk yang diulas.'));
         }
 
         $review = Review::where('order_id', $order->id)->first();
@@ -120,8 +126,7 @@ class ReviewController extends Controller
             ]);
         }
 
-        $redirect = $validated['redirect_url'] ?? url()->previous();
-        return redirect($redirect)->with('success', 'Review berhasil disimpan.');
+        return redirect($redirect . '?success=' . urlencode('Review berhasil disimpan.'));
     }
 
     private function formatResponse($review)
