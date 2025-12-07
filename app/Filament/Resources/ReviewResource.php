@@ -91,6 +91,7 @@ class ReviewResource extends Resource
                     ->label('Created At')
                     ->dateTime(),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Review;
 use App\Models\Order;
+use App\Models\OrderProduct;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -77,43 +78,50 @@ class ReviewController extends Controller
     /**
      * Add or update a review based on order_receipt.
      */
-    public function addOrUpdateReview(Request $request)
+    public function addOrUpdate(Request $request)
     {
-        $validatedData = $request->validate([
+        $validated = $request->validate([
             'order_receipt' => 'required|string',
             'customer_whatsapp' => 'required|digits:5',
-            'title' => 'required|string',
             'body' => 'required|string',
             'rating' => 'required|integer|min:1|max:5',
+            'product_id' => 'required|integer',
+            'redirect_url' => 'nullable|string'
         ]);
-
-        $order = Order::where('receipt', $validatedData['order_receipt'])
-            ->where('customer_whatsapp', 'like', "%{$validatedData['customer_whatsapp']}")
+        
+        $order = Order::where('receipt', $validated['order_receipt'])
+            ->where('customer_whatsapp', 'like', "%{$validated['customer_whatsapp']}")
             ->first();
-
         if (!$order) {
-            return response()->json(['error' => 'Invalid order receipt or customer WhatsApp'], 400);
+            return redirect($redirect)->with('error', 'Invoice atau nomor WhatsApp salah.');
+        }
+
+        $orderProducts = OrderProduct::where('order_id', $order->id)
+            ->where('product_id', $validated['product_id'])
+            ->first();
+        if (!$orderProducts) {
+            return redirect($redirect)->with('error', 'Order tidak sesuai dengan produk yang direview.');
         }
 
         $review = Review::where('order_id', $order->id)->first();
 
         if ($review) {
             $review->update([
-                'title' => $validatedData['title'],
-                'body' => $validatedData['body'],
-                'rating' => $validatedData['rating'],
+                'body' => $validated['body'],
+                'rating' => $validated['rating'],
             ]);
         } else {
-            $review = Review::create([
+            Review::create([
                 'order_id' => $order->id,
-                'title' => $validatedData['title'],
-                'body' => $validatedData['body'],
-                'rating' => $validatedData['rating'],
-                'product_id' => $order->product_id,
+                'product_id' => $validated['product_id'],
+                'title' => "Ulasan untuk {$orderProducts->product->title}",
+                'body' => $validated['body'],
+                'rating' => $validated['rating'],
             ]);
         }
 
-        return $this->formatResponse($review);
+        $redirect = $validated['redirect_url'] ?? url()->previous();
+        return redirect($redirect)->with('success', 'Review berhasil disimpan.');
     }
 
     private function formatResponse($review)

@@ -83,56 +83,63 @@
           </div>
 
           <div class="ps-product__content">
-            <div class="ps-reviews">
+            @if (session('success'))
+              <div class="alert alert-success">
+                {{ session('success') }}
+              </div>
+            @endif
+            @if (session('error'))
+              <div class="alert alert-danger">
+                {{ session('error') }}
+              </div>
+            @endif
+            <form method="POST" action="{{ env("API_HOST")."/api/reviews/addOrUpdate" }}" target="_blank" class="ps-form--review pt-0">
+              @csrf
+              <input type="hidden" name="product_id" value="{{ $product['id'] }}">
+              <input type="hidden" name="redirect_url" value="{{ url()->current() }}">
+              <div class="ps-form__header">
+                <h4>Tambah/Edit Ulasan Produk</h4>
+              </div>
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  ">
+                  <div class="form-group">
+                    <input class="form-control" type="text" name="order_receipt" required placeholder="Invoice">
+                  </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  ">
+                  <div class="form-group">
+                    <input class="form-control" type="number" name="customer_whatsapp" required placeholder="5 digit terakhir nomor Whatsapp">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group form-group--inline">
+                <label>Rating produk:</label>
+                <div class="form-group__content">
+                  <select class="ps-rating" name="rating" required data-read-only="false">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <textarea class="form-control" rows="3" name="body" required placeholder="Tulis ulasan anda disini"></textarea>
+              </div>
+              <div class="form-group text-center submit">
+                <button class="ps-btn">Submit Ulasan</button>
+              </div>
+            </form>
+            
+            <div class="ps-reviews pt-40">
               @foreach ($reviews as $review)
                 @include('includes/product/review-block', [
                   'review' => $review
                 ])
               @endforeach
             </div>
-            
-            <form class="ps-form--review" action="#" method="get">
-              <div class="ps-form__header">
-                <h4>Add your review</h4>
-              </div>
-              <div class="row">
-                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 ">
-                  <div class="form-group form-group--inline">
-                    <label>Your rating:</label>
-                    <div class="form-group__content">
-                      <select class="ps-rating" data-read-only="false">
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 ">
-                  <div class="row">
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  ">
-                      <div class="form-group">
-                        <input class="form-control" type="text" placeholder="Your Name">
-                      </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  ">
-                      <div class="form-group">
-                        <input class="form-control" type="email" placeholder="Your Email">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <textarea class="form-control" rows="6" placeholder="Write your review here"></textarea>
-                  </div>
-                  <div class="form-group submit">
-                    <button class="ps-btn">Submit Review</button>
-                  </div>
-                </div>
-              </div>
-            </form>
           </div>
         </div>
       </div>
