@@ -81,6 +81,59 @@
               </div>
             </div>
           </div>
+
+          <div class="ps-product__content">
+            <div class="ps-reviews">
+              @foreach ($reviews as $review)
+                @include('includes/product/review-block', [
+                  'review' => $review
+                ])
+              @endforeach
+            </div>
+            
+            <form class="ps-form--review" action="#" method="get">
+              <div class="ps-form__header">
+                <h4>Add your review</h4>
+              </div>
+              <div class="row">
+                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 ">
+                  <div class="form-group form-group--inline">
+                    <label>Your rating:</label>
+                    <div class="form-group__content">
+                      <select class="ps-rating" data-read-only="false">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 ">
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  ">
+                      <div class="form-group">
+                        <input class="form-control" type="text" placeholder="Your Name">
+                      </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  ">
+                      <div class="form-group">
+                        <input class="form-control" type="email" placeholder="Your Email">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <textarea class="form-control" rows="6" placeholder="Write your review here"></textarea>
+                  </div>
+                  <div class="form-group submit">
+                    <button class="ps-btn">Submit Review</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>

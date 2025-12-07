@@ -14,14 +14,15 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        $reviews = Review::with('order:id,receipt')->get()->map(function ($review) {
+        $reviews = Review::with('order:id,receipt,customer_name')->get()->map(function ($review) {
             return [
                 'id' => $review->id,
-                'title' => $review->title,
+                'customer_name' => $review->order ? $this->maskName($review->order->customer_name) : '******',
                 'body' => $review->body,
                 'rating' => $review->rating,
                 'order_receipt' => $review->order ? $review->order->receipt : null,
                 'product_id' => $review->product_id,
+                'created_at' => $review->created_at->format('d/m/Y'),
             ];
         });
 
@@ -42,15 +43,16 @@ class ReviewController extends Controller
      */
     public function show(Review $review)
     {
-        $review->load('order:id,receipt');
+        $review->load('order:id,receipt,customer_name');
 
         return response()->json([
             'id' => $review->id,
-            'title' => $review->title,
+            'customer_name' => $review->order ? $review->order->customer_name : '******',
             'body' => $review->body,
             'rating' => $review->rating,
             'order_receipt' => $review->order ? $review->order->receipt : null,
             'product_id' => $review->product_id,
+            'created_at' => $review->created_at->format('d/m/Y'),
         ]);
     }
 
@@ -125,5 +127,18 @@ class ReviewController extends Controller
             'order_receipt' => $review->order ? $review->order->receipt : null,
             'product_id' => $review->product_id,
         ]);
+    }
+
+    private function maskName($name) {
+        $parts = explode(' ', trim($name));
+        $masked = [];
+
+        foreach ($parts as $p) {
+            $first = substr($p, 0, 1);
+            $stars = str_repeat('*', max(strlen($p) - 1, 0));
+            $masked[] = $first . $stars;
+        }
+
+        return implode(' ', $masked);
     }
 }
