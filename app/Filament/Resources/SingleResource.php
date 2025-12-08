@@ -58,7 +58,8 @@ protected static ?string $navigationGroup = 'Content';
                             ])
                             ->orderable()
                             ->collapsible()
-                            ->columnSpanFull(),
+                            ->columnSpanFull()
+                            ->defaultItems(0),
                     ])
                     ->columnSpan(2),
 

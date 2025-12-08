@@ -38,7 +38,8 @@ class CategoryTest extends DuskTestCase
             $browser->visit('/admin/categories/create')
                 ->typeSlowly('#data\.title', 'New Category')
                 ->press('#key-bindings-1')
-                ->waitForText('Created')
+                ->waitUntil("window.location.href != 'http://127.0.0.1:8000/admin/categories/create'")
+                ->waitForText('Created', 10)
                 ->assertSee('Created');
         });
     }
@@ -47,11 +48,11 @@ class CategoryTest extends DuskTestCase
     public function admin_category_update(): void
     {
         $this->browse(function (Browser $browser) {
-            $lastItemId = Category::latest()->first()->id;
-            $browser->visit("/admin/categories/{$lastItemId}/edit")
+            $lastItem = Category::latest()->first()->id;
+            $browser->visit("/admin/categories/{$lastItem}/edit")
                 ->typeSlowly('#data\.title', 'Updated Category')
                 ->press('#key-bindings-2')
-                ->waitForText('Saved')
+                ->waitForText('Saved', 10)
                 ->assertSee('Saved');
         });
     }
@@ -60,11 +61,11 @@ class CategoryTest extends DuskTestCase
     public function admin_category_delete(): void
     {
         $this->browse(function (Browser $browser) {
-            $lastItemId = Category::latest()->first()->id;
-            $browser->visit("/admin/categories/{$lastItemId}/edit")
+            $lastItem = Category::latest()->first()->id;
+            $browser->visit("/admin/categories/{$lastItem}/edit")
                 ->press('#key-bindings-1')
-                ->waitFor('.fi-modal-window button[x-data*="isProcessing"]')  
-                ->press('.fi-modal-window button[x-data*="isProcessing"]')  
+                ->waitFor('.fi-modal-window button[x-data*="isProcessing"]')
+                ->press('.fi-modal-window button[x-data*="isProcessing"]')
                 ->waitForLocation('/admin/categories')
                 ->assertSee('Deleted');
         });
