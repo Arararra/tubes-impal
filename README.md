@@ -7,6 +7,8 @@
 7. Sebelum push pastikan sudah pull terlebih dahulu
 8. PASTIKAN untuk tidak merge ke branch `main` jika fitur belum final dan/atau tanpa konfirmasi bersama
 
+---
+
 ## Initial setup
 Command untuk setup awal, pastikan file `.env` sudah disetup.
 ```shell
@@ -27,34 +29,35 @@ $ composer install
 
 # To migrate database changes
 $ php artisan migrate
+
+# To fill database tables
+$ php artisan db:seed
 ```
 
 ## Start project
 ```shell
+# Aktifkan main project
 $ php artisan serve
+
+# Aktifkan API_HOST
+$ php artisan serve --port=8001
 ```
 
-## Setup entry/resource
-Cek resource dan migration yang sudah ada sebagai referensi
-1. Buat model baru beserta migrasi
-```shell 
-php artisan make:model {NamaModel} -m
-```
-2. Isi migrasi
-3. Isi model
-4. Migrate file migration yang sudah dibuat tadi
-```shell
-$ php artisan migrate
-```
-5. Buat resource filament (namanya samakan dengan model saja)
-```shell
-$ php artisan make:filament-resource {NamaModel}
-```
-6. Isi schema (form) dan table sesuai yang dibutuhkan
+---
 
-## Setup API
-Cek `app\Http\Controllers\Api\SingleController.php` dan `route/api.php` untuk referensi
-1. Buat controller API
-`php artisan make:controller Api/{Nama}Controller --api`
-2. Tambahkan route di routes/api.php, pastikan endpoint dan model sudah benar
-3. Isi controller sesuai kebutuhan
+## Unit Test
+```shell
+# Pastikan project dan API_HOST sudah aktif
+$ php artisan test
+```
+## Dusk Test
+```shell
+# Install Laravel Dusk
+$ php artisan dusk:install
+
+# Run all Dusk test
+$ php artisan dusk
+
+# Run spesific Dusk test
+$ php artisan dusk tests/Browser/{NamaTest}.php
+```
