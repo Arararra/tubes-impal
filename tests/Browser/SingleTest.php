@@ -76,4 +76,25 @@ class SingleTest extends DuskTestCase
                 ->assertSee('Deleted');
         });
     }
+
+    /** @test */
+    public function check_about_page(): void
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit("/about")
+                ->assertSee('Kami adalah toko roti lokal yang berkomitmen');
+        });
+    }
+
+    /** @test */
+    public function check_faq_page(): void
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit("/faq")
+                ->scrollTo('div[x-data] .mb-3:nth-child(3) .card-header')
+                ->pause(1000)
+                ->click('div[x-data] .mb-3:nth-child(3) .card-header')
+                ->waitForText('Ya, kami melayani pengantaran ke wilayah kota');
+        });
+    }
 }
