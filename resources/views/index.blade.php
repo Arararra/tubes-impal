@@ -26,16 +26,16 @@
       </div>
     </div>
 
-    <div class="ps-section ps-home-about">
+    {{-- <div class="ps-section ps-home-about">
       <div class="container">
         <div style="height: 100vh" class="d-flex justify-content-center align-items-center">
           <h1>TEST LONG PAGE</h1>
 
-          {{-- @dump($categories)
+          @dump($categories)
           @dump($products)
-          @dump($reviews) --}}
+          @dump($reviews)
         </div>
       </div>
-    </div>
+    </div> --}}
   </div>
 @endsection

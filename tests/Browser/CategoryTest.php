@@ -70,4 +70,28 @@ class CategoryTest extends DuskTestCase
                 ->assertSee('Deleted');
         });
     }
+
+    /** @test */
+    public function admin_required_empty_error(): void
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/admin/categories/create')
+                ->pause(3000)
+                ->press('#key-bindings-1')
+                ->assertFocused('#data\.title');
+        });
+    }
+
+    /** @test */
+    public function admin_required_empty_force_save_error(): void
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/admin/categories/create')
+                ->pause(3000)
+                ->press('#key-bindings-2')
+                ->waitForLocation('/admin/categories/create')
+                ->waitForText('field is required', 10)
+                ->assertSee('field is required');
+        });
+    }
 }

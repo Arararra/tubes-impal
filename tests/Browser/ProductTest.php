@@ -78,4 +78,30 @@ class ProductTest extends DuskTestCase
                 ->assertSee('Deleted');
         });
     }
+
+    /** @test */
+    public function admin_logout(): void
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/admin')
+                ->press('button[aria-label="User menu"]')
+                ->waitFor('form[action*="logout"] button[type="submit"]')
+                ->press('form[action*="logout"] button[type="submit"]')
+                ->waitForLocation('/admin/login')
+                ->assertPathIs('/admin/login');
+        });
+    }
+
+    /** @test */
+    public function admin_login_invalid_data(): void
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/admin/login')
+                ->type('#data\.email', 'miaw@impal.com')
+                ->type('#data\.password', 'miaw123')
+                ->press('#form > div.fi-form-actions > div > button')
+                ->waitForText('These credentials do not match our records.', 10)
+                ->assertSee('These credentials do not match our records.');
+        });
+    }
 }
