@@ -28,7 +28,7 @@
           <div class="ps-product__header">
             <div class="ps-product__thumbnail">
               <figure class="d-flex justify-content-center justify-content-lg-end mb-0">
-                <img src="{{ env('API_HOST')."/storage/".$product['image'] }}" height="340" alt="Foto produk">
+                <img src="{{ env('API_IMAGE_HOST')."/storage/".$product['image'] }}" height="340" alt="Foto produk">
               </figure>
             </div>
             <div class="ps-product__info">

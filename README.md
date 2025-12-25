@@ -20,6 +20,9 @@ $ php artisan key:generate
 
 # Fresh migrate db schema
 $ php artisan migrate:fresh --seed
+
+# Link storage
+$ php artisan storage:link
 ```
 
 ## Pull repo changes
@@ -65,7 +68,12 @@ $ php artisan dusk tests/Browser/{NamaTest}.php
 ---
 
 ## Docker
-Sebelumnya pastikan Docker Desktop sudah aktif, ubah setting DB_ di `.env` sesuai dengan `docker-compose.yml`
+```
+Prasyarat:
+1. Docker Desktop sudah aktif
+2. Setting `DB_` di `.env` sesuaikan dengan setting mysql di `docker-compose.yml`
+3. Gunakan "http://nginx-api" pada setting `API_HOST` di `.env`
+```
 ```shell
 # Init docker swarm
 $ docker swarm init
@@ -86,6 +94,7 @@ docker exec -it $(docker ps -q -f name=laravel_app) bash
 $ composer install
 $ php artisan key:generate
 $ php artisan migrate:fresh --seed
+$ php artisan storage:link
 
 # Untuk menghentikan docker gunakan
 $ docker stack rm laravel
