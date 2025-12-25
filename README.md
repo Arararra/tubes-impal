@@ -61,3 +61,32 @@ $ php artisan dusk
 # Run spesific Dusk test
 $ php artisan dusk tests/Browser/{NamaTest}.php
 ```
+
+---
+
+## Docker
+Sebelumnya pastikan Docker Desktop sudah aktif, ubah setting DB_ di `.env` sesuai dengan `docker-compose.yml`
+```shell
+# Init docker swarm
+$ docker swarm init
+
+# Build image
+$ docker build -t laravel-filament-app -f docker/php/Dockerfile .
+
+# Deploy stack
+$ docker stack deploy -c docker-compose.yml laravel
+
+# Cek services apakah sudah aktif
+docker service ls
+
+# Masuk ke container app
+docker exec -it $(docker ps -q -f name=laravel_app) bash
+
+# Setup container app
+$ composer install
+$ php artisan key:generate
+$ php artisan migrate:fresh --seed
+
+# Untuk menghentikan docker gunakan
+$ docker stack rm laravel
+```
