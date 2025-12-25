@@ -41,10 +41,10 @@ services:
   mysql:
     image: mysql:8.0
     environment:
-      MYSQL_DATABASE: laravel
-      MYSQL_USER: laravel
-      MYSQL_PASSWORD: secret
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE:       # Jangan lupa isi
+      MYSQL_USER:           # Jangan lupa isi
+      MYSQL_PASSWORD:       # Jangan lupa isi
+      MYSQL_ROOT_PASSWORD:  # Jangan lupa isi
     volumes:
       - mysql-data:/var/lib/mysql
     networks:
