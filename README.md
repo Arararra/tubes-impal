@@ -71,7 +71,7 @@ $ php artisan dusk tests/Browser/{NamaTest}.php
 ```
 Prasyarat:
 1. Docker Desktop sudah aktif
-2. Setting `DB_` di `.env` sesuaikan dengan setting mysql di `docker-compose.yml`
+2. Setting `DB_` di `.env` sesuaikan dengan setting mysql di `docker-compose.yml` (`DB_HOST` isi dengan "mysql")
 3. Gunakan "http://nginx-api" pada setting `API_HOST` di `.env`
 ```
 ```shell
@@ -85,10 +85,10 @@ $ docker build -t laravel-filament-app -f docker/php/Dockerfile .
 $ docker stack deploy -c docker-compose.yml laravel
 
 # Cek services apakah sudah aktif
-docker service ls
+$ docker service ls
 
 # Masuk ke container app
-docker exec -it $(docker ps -q -f name=laravel_app) bash
+$ docker exec -it $(docker ps -q -f name=laravel_app) bash
 
 # Setup container app
 $ composer install

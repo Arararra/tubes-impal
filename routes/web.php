@@ -5,6 +5,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\GeneralController;
 
+Route::get('/health', function (Request $request) {
+    return response()->json(['status' => 'OK'], 200);
+});
 Route::get('/', [GeneralController::class, 'home'])->name('home');
 Route::get('/products', [GeneralController::class, 'products'])->name('products');
 Route::get('/products/{id?}', [GeneralController::class, 'product'])->name('product');
