@@ -90,7 +90,7 @@ $ docker service ls
 # Masuk ke container app
 $ docker exec -it $(docker ps -q -f name=laravel_app) bash
 
-# Setup container app
+# Setup container app layaknya awal setup (opsional)
 $ composer install
 $ php artisan key:generate
 $ php artisan migrate:fresh --seed
