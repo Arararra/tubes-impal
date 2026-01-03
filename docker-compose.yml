@@ -1,0 +1,64 @@
+version: "3.8"
+
+services:
+  app:
+    image: laravel-filament-app:latest
+    volumes:
+      - .:/var/www
+    networks:
+      - laravel
+    deploy:
+      replicas: 1
+
+  nginx-web:
+    image: nginx:alpine
+    volumes:
+      - .:/var/www
+      - ./docker/nginx/web.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8000:80"
+    depends_on:
+      - app
+    networks:
+      - laravel
+    deploy:
+      replicas: 3
+
+  nginx-api:
+    image: nginx:alpine
+    volumes:
+      - .:/var/www
+      - ./docker/nginx/api.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8001:80"
+    depends_on:
+      - app
+    networks:
+      - laravel
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+      update_config:
+        order: start-first
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE:       # Jangan lupa isi
+      MYSQL_USER:           # Jangan lupa isi
+      MYSQL_PASSWORD:       # Jangan lupa isi
+      MYSQL_ROOT_PASSWORD:  # Jangan lupa isi
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - laravel
+    deploy:
+      replicas: 1
+
+networks:
+  laravel:
+    driver: overlay
+
+volumes:
+  mysql-data:
