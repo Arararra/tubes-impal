@@ -148,7 +148,7 @@
       const product = {
         id: {{ $product['id'] }},
         name: '{{ $product['title'] }}',
-        image: '{{ env('API_HOST').'/storage/'.$product['image'] }}',
+        image: '{{ env('API_IMAGE_HOST').'/storage/'.$product['image'] }}',
         price: {{ $product['price'] }},
       };
       const quantity = parseInt(quantityInput.value || 1);

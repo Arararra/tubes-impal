@@ -18,7 +18,7 @@
       </div>
       <div class="ps-product__shopping h-100 d-flex align-items-center justify-content-center">
         <button class="ps-btn ps-product__add-to-cart cart-add" data-id="{{ $item['id'] }}" data-name="{{ $item['title'] }}" 
-          data-image="{{ env('API_HOST')."/storage/".$item['image'] }}" data-price="{{ $item['price'] }}">
+          data-image="{{ env('API_IMAGE_HOST')."/storage/".$item['image'] }}" data-price="{{ $item['price'] }}">
           Add to Cart
         </button>
       </div>

@@ -88,7 +88,7 @@
           data.cart = cart;
 
           try {
-            const response = await fetch('{{ env('API_HOST')."/api/orders/checkout" }}', {
+            const response = await fetch('{{ env('API_IMAGE_HOST')."/api/orders/checkout" }}', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
