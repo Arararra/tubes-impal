@@ -10,7 +10,7 @@
 ---
 
 ## Initial setup
-Command untuk setup awal, pastikan file `.env` sudah disetup.
+Command untuk setup awal, pastikan file `.env` sudah disetup. Isi `BEARER_TOKEN` dengan string random.
 ```shell
 # Install dependency
 $ composer install
@@ -95,6 +95,9 @@ $ composer install
 $ php artisan key:generate
 $ php artisan migrate:fresh --seed
 $ php artisan storage:link
+
+# Scale up
+$ docker service scale SERVICE_NAME=NUMBER_OF_REPLICAS
 
 # Untuk menghentikan docker gunakan
 $ docker stack rm laravel
