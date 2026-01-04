@@ -16,7 +16,7 @@ class BearerTokenMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         $token = $request->bearerToken();
-        $validToken = env('BEARER_TOKEN');
+        $validToken = config('api.bearer_token');
 
         if (!$token || $token !== $validToken) {
             return response()->json(['message' => 'Unauthorized'], 401);

@@ -9,8 +9,8 @@ use Illuminate\Support\Collection;
 class GeneralController extends Controller
 {
     public function home() {
-        $apiHost = env('API_HOST');
-        $token = env('BEARER_TOKEN');
+        $apiHost = config('api.api_host');
+        $token = config('api.bearer_token');
             
         $singles = Http::withToken($token)->get(url("$apiHost/api/singles"))->json();
         $categories = Http::withToken($token)->get(url("$apiHost/api/categories"))->json();
@@ -27,8 +27,8 @@ class GeneralController extends Controller
 
     public function products(Request $request)
     {
-        $apiHost = env('API_HOST');
-        $token = env('BEARER_TOKEN');
+        $apiHost = config('api.api_host');
+        $token = config('api.bearer_token');
         
         $categories = Http::withToken($token)->get(url("$apiHost/api/categories"))->json();
         $products = Http::withToken($token)->get(url("$apiHost/api/products"))->json();
@@ -84,8 +84,8 @@ class GeneralController extends Controller
     }
 
     public function product($id) {
-        $apiHost = env('API_HOST');
-        $token = env('BEARER_TOKEN');
+        $apiHost = config('api.api_host');
+        $token = config('api.bearer_token');
             
         $product = Http::withToken($token)->get(url("$apiHost/api/products/$id"))->json();
         $reviews = Http::withToken($token)->get(url("$apiHost/api/reviews"))->json();
@@ -108,8 +108,8 @@ class GeneralController extends Controller
     }
 
     public function orderCheck(Request $request) {
-        $apiHost = env('API_HOST');
-        $token = env('BEARER_TOKEN');
+        $apiHost = config('api.api_host');
+        $token = config('api.bearer_token');
         
         $invoice = $request->get('invoice', '0');
         $order = Http::withToken($token)->get(url("$apiHost/api/orders/$invoice"))->json() ?? [];
@@ -127,8 +127,8 @@ class GeneralController extends Controller
     }
 
     public function single($slug) {
-        $apiHost = env('API_HOST');
-        $token = env('BEARER_TOKEN');
+        $apiHost = config('api.api_host');
+        $token = config('api.bearer_token');
             
         $single = Http::withToken($token)->get(url("$apiHost/api/singles/$slug"))->json();
 
