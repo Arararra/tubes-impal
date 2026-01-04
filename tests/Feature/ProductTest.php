@@ -19,7 +19,7 @@ class ProductTest extends TestCase
         parent::setUp();
 
         $this->headers = [
-            'Authorization' => 'Bearer ' . env('BEARER_TOKEN'),
+            'Authorization' => 'Bearer ' . config('api.bearer_token'),
             'Accept' => 'application/json',
         ];
     }
@@ -29,9 +29,9 @@ class ProductTest extends TestCase
     {
         $response = $this->postJson(route('products.store'), [
             'title' => 'New Product',
-            'image' => 'image.jpg',
+            'image' => "products/roti-gandum.jpg",
             'body' => 'Product description',
-            'price' => 99.99,
+            'price' => 9999,
             'stock' => 10,
         ], $this->headers);
 
@@ -39,9 +39,9 @@ class ProductTest extends TestCase
 
         $this->assertDatabaseHas('products', [
             'title' => 'New Product',
-            'image' => 'image.jpg',
+            'image' => "products/roti-gandum.jpg",
             'body' => 'Product description',
-            'price' => 99.99,
+            'price' => 9999,
             'stock' => 10,
         ]);
     }

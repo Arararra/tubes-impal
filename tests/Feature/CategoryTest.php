@@ -19,7 +19,7 @@ class CategoryTest extends TestCase
         parent::setUp();
 
         $this->headers = [
-            'Authorization' => 'Bearer ' . env('BEARER_TOKEN'),
+            'Authorization' => 'Bearer ' . config('api.bearer_token'),
             'Accept' => 'application/json',
         ];
     }
