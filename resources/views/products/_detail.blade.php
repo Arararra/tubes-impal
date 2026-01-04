@@ -74,7 +74,7 @@
           </div>
 
           <div class="ps-product__content">
-            <form method="POST" action="{{ config('api.api_image_host')IMAGE_HOST")."/api/reviews/addOrUpdate" }}" class="ps-form--review pt-0">
+            <form method="POST" action="{{ config('api.api_image_host')."/api/reviews/addOrUpdate" }}" class="ps-form--review pt-0">
               @csrf
               <input type="hidden" name="product_id" value="{{ $product['id'] }}">
               <input type="hidden" name="redirect_url" value="{{ url()->current() }}">
