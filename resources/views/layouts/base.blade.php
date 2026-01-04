@@ -10,7 +10,7 @@
     <meta name="keywords" content="ambabakery">
     <meta name="description" content="Uenak banget loh ya">
 
-    <title>@yield('title', 'Default Title') | {{ env('APP_NAME') }}</title>
+    <title>@yield('title', 'Default Title') | {{ config('app.app_name')) }}</title>
 
     {{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
     <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond:300i,400,400i,500,500i,600,600i,700&amp;display=swap" rel="stylesheet">

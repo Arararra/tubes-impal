@@ -27,6 +27,12 @@ $ php artisan storage:link
 
 ## Pull repo changes
 ```shell
+# Clear cache
+$ composer dump-autoload
+$ php artisan clear-compiled
+$ php artisan optimize:clear
+$ php artisan config:cache
+
 # Run composer to install packages
 $ composer install
 
