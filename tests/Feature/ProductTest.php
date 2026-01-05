@@ -99,4 +99,15 @@ class ProductTest extends TestCase
             'id' => $product->id,
         ]);
     }
+    
+    /** @test */
+    public function product_api_handle_invalid_id()
+    {
+        $invalidProductId = 99999;
+
+        // Disini uji dilakukan dengan metode delete, untuk edit hasilnya sama saja
+        $response = $this->delete(route('products.destroy', ['product' => $invalidProductId]), [], $this->headers);
+
+        $response->assertStatus(404);
+    }
 }

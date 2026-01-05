@@ -84,4 +84,15 @@ class CategoryTest extends TestCase
             'id' => $category->id,
         ]);
     }
+
+    /** @test */
+    public function category_api_handle_invalid_id()
+    {
+        $invalidCategoryId = 99999;
+
+        // Disini uji dilakukan dengan metode delete, untuk edit hasilnya sama saja
+        $response = $this->delete(route('categories.destroy', ['category' => $invalidCategoryId]), [], $this->headers);
+
+        $response->assertStatus(404);
+    }
 }

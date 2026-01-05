@@ -120,4 +120,15 @@ class SingleTest extends TestCase
             'id' => $single->id,
         ]);
     }
+
+    /** @test */
+    public function single_api_handle_invalid_id()
+    {
+        $invalidSingleId = 99999;
+
+        // Disini uji dilakukan dengan metode delete, untuk edit hasilnya sama saja
+        $response = $this->delete(route('singles.destroy', ['single' => $invalidSingleId]), [], $this->headers);
+
+        $response->assertStatus(404);
+    }
 }
