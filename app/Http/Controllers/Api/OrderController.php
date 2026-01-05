@@ -48,7 +48,24 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $order = Order::create($request->all());
+        $validatedData = $request->validate([
+            'customer_name' => 'required|string|max:255',
+            'customer_city' => 'required|string|max:255',
+            'customer_postcode' => 'required|string|max:10',
+            'customer_address' => 'required|string',
+            'customer_whatsapp' => 'required|string|max:15',
+            'receipt' => 'required|string|unique:orders,receipt',
+            'shipping_receipt' => 'nullable|string',
+            'status' => 'required|string|max:50',
+            'total' => 'required|numeric',
+            'paid_date' => 'nullable|date',
+            'order_products' => 'sometimes|array',
+            'order_products.*.product_id' => 'required|integer|exists:products,id',
+            'order_products.*.quantity' => 'required|integer|min:1',
+            'order_products.*.price' => 'required|numeric|min:0',
+        ]);
+
+        $order = Order::create($validatedData);
 
         if ($request->has('order_products')) {
             foreach ($request->order_products as $op) {
@@ -97,7 +114,24 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        $order->update($request->all());
+        $validatedData = $request->validate([
+            'customer_name' => 'sometimes|required|string|max:255',
+            'customer_city' => 'sometimes|required|string|max:255',
+            'customer_postcode' => 'sometimes|required|string|max:10',
+            'customer_address' => 'sometimes|required|string',
+            'customer_whatsapp' => 'sometimes|required|string|max:15',
+            'receipt' => 'sometimes|required|string|unique:orders,receipt,' . $order->id,
+            'shipping_receipt' => 'sometimes|nullable|string',
+            'status' => 'sometimes|required|string|max:50',
+            'total' => 'sometimes|required|numeric',
+            'paid_date' => 'sometimes|nullable|date',
+            'order_products' => 'sometimes|array',
+            'order_products.*.product_id' => 'required|integer|exists:products,id',
+            'order_products.*.quantity' => 'required|integer|min:1',
+            'order_products.*.price' => 'required|numeric|min:0',
+        ]);
+
+        $order->update($validatedData);
 
         if ($request->has('order_products')) {
             $order->orderProducts()->delete();

@@ -36,7 +36,15 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
-        $review = Review::create($request->all());
+        $validateData = $request->validate([
+            'order_id' => 'required|integer|exists:orders,id',
+            'product_id' => 'required|integer',
+            'title' => 'required|string|max:255',
+            'body' => 'required|string',
+            'rating' => 'required|integer|min:1|max:5',
+        ]);
+
+        $review = Review::create($validateData);
         return $this->formatResponse($review);
     }
 
@@ -63,7 +71,13 @@ class ReviewController extends Controller
      */
     public function update(Request $request, Review $review)
     {
-        $review->update($request->all());
+        $validatedData = $request->validate([
+            'title' => 'sometimes|required|string|max:255',
+            'body' => 'sometimes|required|string',
+            'rating' => 'sometimes|required|integer|min:1|max:5',
+        ]);
+
+        $review->update($validatedData);
         return $this->formatResponse($review);
     }
 
