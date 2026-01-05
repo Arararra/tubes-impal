@@ -95,4 +95,17 @@ class CategoryTest extends TestCase
 
         $response->assertStatus(404);
     }
+
+    /** @test */
+    public function category_api_handle_invalid_input()
+    {
+        $response = $this->postJson(route('categories.store'), [
+            'title' => 'New Category',
+            'image' => 12345, // Invalid format
+        ], $this->headers);
+
+        $response->assertStatus(422);
+        
+        $response->assertJsonValidationErrors(['image']);
+    }
 }

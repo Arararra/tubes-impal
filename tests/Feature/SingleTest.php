@@ -131,4 +131,20 @@ class SingleTest extends TestCase
 
         $response->assertStatus(404);
     }
+
+    /** @test */
+    public function single_api_handle_invalid_input()
+    {
+        $response = $this->postJson(route('singles.store'), [
+            'title' => 'New Single',
+            'slug' => 'new-single',
+            'image' => 'image.jpg',
+            'body' => 'Single description',
+            'accordions' => 'string-instead-of-array', // Invalid format
+        ], $this->headers);
+
+        $response->assertStatus(422);
+
+        $response->assertJsonValidationErrors(['accordions']);
+    }
 }

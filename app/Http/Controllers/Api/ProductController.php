@@ -27,16 +27,14 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate the request data
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'image' => 'required|string',
             'body' => 'required|string',
-            'price' => 'required|numeric', // Ensure price is a number
-            'stock' => 'required|integer', // Ensure stock is an integer
+            'price' => 'required|numeric',
+            'stock' => 'required|integer',
         ]);
 
-        // Create the product with validated data
         $product = Product::create($validatedData);
 
         if ($request->has('category_ids')) {
@@ -65,16 +63,14 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        // Validate the request data
         $validatedData = $request->validate([
             'title' => 'sometimes|required|string|max:255',
             'image' => 'sometimes|required|string',
             'body' => 'sometimes|required|string',
-            'price' => 'sometimes|required|numeric', // Ensure price is a number
-            'stock' => 'sometimes|required|integer', // Ensure stock is an integer
+            'price' => 'sometimes|required|numeric',
+            'stock' => 'sometimes|required|integer',
         ]);
 
-        // Update the product with validated data
         $product->update($validatedData);
 
         if ($request->has('category_ids')) {

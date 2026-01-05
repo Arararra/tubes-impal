@@ -21,7 +21,17 @@ class SingleController extends Controller
      */
     public function store(Request $request)
     {
-        $single = Single::create($request->all());
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:singles,slug',
+            'image' => 'required|string',
+            'body' => 'required|string',
+            'accordions' => 'required|array',
+            'accordions.*.title' => 'required|string|max:255',
+            'accordions.*.content' => 'required|string',
+        ]);
+
+        $single = Single::create($validatedData);
         return response()->json($single, 201);
     }
 
@@ -38,7 +48,17 @@ class SingleController extends Controller
      */
     public function update(Request $request, Single $single)
     {
-        $single->update($request->all());
+        $validatedData = $request->validate([
+            'title' => 'sometimes|required|string|max:255',
+            'slug' => 'sometimes|required|string|max:255|unique:singles,slug,' . $single->id,
+            'image' => 'sometimes|required|string',
+            'body' => 'sometimes|required|string',
+            'accordions' => 'sometimes|required|array',
+            'accordions.*.title' => 'sometimes|required|string|max:255',
+            'accordions.*.content' => 'sometimes|required|string',
+        ]);
+
+        $single->update($validatedData);
         return response()->json($single);
     }
 

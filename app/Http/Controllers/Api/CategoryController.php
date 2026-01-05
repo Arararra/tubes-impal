@@ -21,7 +21,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = Category::create($request->all());
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'image' => 'required|string',
+        ]);
+
+        $category = Category::create($validatedData);
         return response()->json($category, 201);
     }
 
@@ -38,7 +43,12 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        $category->update($request->all());
+        $validatedData = $request->validate([
+            'title' => 'sometimes|required|string|max:255',
+            'image' => 'sometimes|required|string',
+        ]);
+
+        $category->update($validatedData);
         return response()->json($category);
     }
 
