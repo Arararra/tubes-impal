@@ -35,7 +35,7 @@ class GeneralController extends Controller
 
         $search = $request->get('search');
         $category = $request->get('category');
-        $sort = $request->get('sort'); // 1=Nama A-Z, 2=Nama Z-A, 3=Harga Terendah, 4=Harga Tertinggi
+        $sort = $request->get('sort', 1); // 1=Nama A-Z, 2=Nama Z-A, 3=Harga Terendah, 4=Harga Tertinggi
         $page = $request->get('page', 1);
         $perPage = 8;
 
