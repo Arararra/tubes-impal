@@ -10,7 +10,7 @@
 ---
 
 ## Initial setup
-Command untuk setup awal, pastikan file `.env` sudah disetup. Isi `BEARER_TOKEN` dengan string random.
+Command untuk setup awal, pastikan file `.env` sudah disetup. Isi `BEARER_TOKEN` dengan string random. Lalu copy konten dari `storage/app/public` ke folder `public/storage`
 ```shell
 # Install dependency
 $ composer install
