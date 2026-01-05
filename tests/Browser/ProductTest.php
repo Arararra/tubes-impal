@@ -80,28 +80,26 @@ class ProductTest extends DuskTestCase
     }
 
     /** @test */
-    public function admin_logout(): void
+    public function admin_required_empty_error(): void
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/admin')
-                ->press('button[aria-label="User menu"]')
-                ->waitFor('form[action*="logout"] button[type="submit"]')
-                ->press('form[action*="logout"] button[type="submit"]')
-                ->waitForLocation('/admin/login')
-                ->assertPathIs('/admin/login');
+            $browser->visit('/admin/products/create')
+                ->pause(3000)
+                ->press('#key-bindings-1')
+                ->assertFocused('#data\.title');
         });
     }
 
     /** @test */
-    public function admin_login_invalid_data(): void
+    public function admin_required_empty_force_save_error(): void
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/admin/login')
-                ->type('#data\.email', 'miaw@impal.com')
-                ->type('#data\.password', 'miaw123')
-                ->press('#form > div.fi-form-actions > div > button')
-                ->waitForText('These credentials do not match our records.', 10)
-                ->assertSee('These credentials do not match our records.');
+            $browser->visit('/admin/products/create')
+                ->pause(3000)
+                ->press('#key-bindings-2')
+                ->waitForLocation('/admin/products/create')
+                ->waitForText('field is required', 10)
+                ->assertSee('field is required');
         });
     }
 }

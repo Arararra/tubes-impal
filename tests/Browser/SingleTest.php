@@ -78,6 +78,30 @@ class SingleTest extends DuskTestCase
     }
 
     /** @test */
+    public function admin_required_empty_error(): void
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/admin/singles/create')
+                ->pause(3000)
+                ->press('#key-bindings-1')
+                ->assertFocused('#data\.title');
+        });
+    }
+
+    /** @test */
+    public function admin_required_empty_force_save_error(): void
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/admin/singles/create')
+                ->pause(3000)
+                ->press('#key-bindings-2')
+                ->waitForLocation('/admin/singles/create')
+                ->waitForText('field is required', 10)
+                ->assertSee('field is required');
+        });
+    }
+
+    /** @test */
     public function check_about_page(): void
     {
         $this->browse(function (Browser $browser) {
