@@ -6,7 +6,7 @@ use App\Models\Order;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Support\Facades\DB;
 
-class MonthlyChartWidget extends ChartWidget
+class MonthlySalesWidget extends ChartWidget
 {
     protected static ?string $heading = 'Monthly Sales Chart';
 
@@ -84,7 +84,7 @@ class MonthlyChartWidget extends ChartWidget
             ],
             'plugins' => [
                 'legend' => [
-                'position' => 'bottom',
+                    'position' => 'bottom',
                 ],
             ],
         ];
