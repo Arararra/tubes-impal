@@ -29,7 +29,7 @@ class ProductTest extends TestCase
     {
         $response = $this->postJson(route('products.store'), [
             'title' => 'New Product',
-            'image' => "products/roti-gandum.jpg",
+            'image' => 'image.jpg',
             'body' => 'Product description',
             'price' => 9999,
             'stock' => 10,
@@ -39,7 +39,7 @@ class ProductTest extends TestCase
 
         $this->assertDatabaseHas('products', [
             'title' => 'New Product',
-            'image' => "products/roti-gandum.jpg",
+            'image' => 'image.jpg',
             'body' => 'Product description',
             'price' => 9999,
             'stock' => 10,
@@ -64,7 +64,7 @@ class ProductTest extends TestCase
             'title' => 'Old Title',
             'image' => 'old_image.jpg',
             'body' => 'Old description',
-            'price' => 50.00,
+            'price' => 5000,
             'stock' => 5,
         ]);
 
@@ -72,7 +72,7 @@ class ProductTest extends TestCase
             'title' => 'Updated Title',
             'image' => 'updated_image.jpg',
             'body' => 'Updated description',
-            'price' => 150.00,
+            'price' => 15000,
             'stock' => 15,
         ], $this->headers);
 
@@ -82,7 +82,7 @@ class ProductTest extends TestCase
             'title' => 'Updated Title',
             'image' => 'updated_image.jpg',
             'body' => 'Updated description',
-            'price' => 150.00,
+            'price' => 15000,
             'stock' => 15,
         ]);
     }
@@ -109,5 +109,21 @@ class ProductTest extends TestCase
         $response = $this->delete(route('products.destroy', ['product' => $invalidProductId]), [], $this->headers);
 
         $response->assertStatus(404);
+    }
+
+    /** @test */
+    public function product_api_handle_invalid_input()
+    {
+        $response = $this->postJson(route('products.store'), [
+            'title' => 'New Product',
+            'image' => 'image.jpg',
+            'body' => 'Product description',
+            'price' => 'string', // Invalid format
+            'stock' => 10,
+        ], $this->headers);
+
+        $response->assertStatus(422);
+
+        $response->assertJsonValidationErrors(['price']);
     }
 }
